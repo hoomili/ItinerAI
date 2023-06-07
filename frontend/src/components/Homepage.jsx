@@ -13,7 +13,15 @@ function Homepage() {
 
     const prompt = `Plan a trip to ${destination} for ${numDays} days with a daily budget of ${dailyBudget}. The traveler is interested in ${activities}.`;
 
-    const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+    const data = {
+      destination,
+      days,
+      budget,
+      activities
+    };
+  
+
+    const response = await axios.post('', data, {
       prompt,
       max_tokens: 500,
     }, {
@@ -23,13 +31,13 @@ function Homepage() {
       }
     });
 
-    // Do something with the response here
+ 
   };
 
   return (
     <div>
       <h1>Welcome to ItinerAI!</h1>
-      <form onSbumit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
       <label>
           Destination:
           <input type="text" name="destination" value={destination} onChange={(e) => setDestination(e.target.value)} />
