@@ -5,6 +5,7 @@ const app = express();
 const server = require('http').Server(app);
 const bodyParser = require('body-parser');
 const cors = require('cors');
+// const apiRoutes = require('./routes/api');
 const apiRoutes = require('./routes/api')
 const morgan = require('morgan');
 const { Client } = require('pg');
@@ -22,13 +23,14 @@ const client = new Client({
 client.connect();
 
 
-
 // Express config
 app.use(bodyParser.json());
+app.use(express.static('public'))
 app.use(morgan('dev'));
 app.use(cors());
-app.use('/api', apiRoutes)
 
+// app.use('/api', apiRoutes)
+app.use('/api', apiRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 8080;

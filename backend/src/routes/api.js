@@ -1,5 +1,5 @@
-const Express = require('express');
-const router = Express.Router();
+const express = require('express');
+const router = express.Router();
 const { Configuration, OpenAIApi } = require('openai');
 
 // Set up OpenAI API configuration
@@ -9,7 +9,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // Handle POST requests to '/api/completions'
-router.post('/api/completions', async (req, res) => {
+router.post('/completions', async (req, res) => {
   console.log(req.body)
   const { city, country, numDays, dailyBudget, interests } = req.body;
 
@@ -38,3 +38,5 @@ router.post('/api/completions', async (req, res) => {
   });
   console.log('response:', response.data.choices[0].text)
 });
+
+module.exports = router;
