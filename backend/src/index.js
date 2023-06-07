@@ -1,16 +1,16 @@
 require('dotenv').config();
-const openai = require('openai');
 const sass = require('sass');
-const PORT = process.env.PORT || 8080;
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const apiRoutes = require('./routes/api')
+const morgan = require('morgan');
 const { Client } = require('pg');
 
-app.use(bodyParser.json());
 
-//Connect to Database
+// Connect to Database
 const client = new Client({
   host: process.env.PGHOST,
   user: process.env.PGUSER,
@@ -21,6 +21,19 @@ const client = new Client({
 
 client.connect();
 
+
+
+// Express config
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(cors());
+app.use('/api', apiRoutes)
+
+
+// Start the server
+const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on port ${PORT}`);
 });
+
+module.exports = client;

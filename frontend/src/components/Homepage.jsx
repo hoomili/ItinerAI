@@ -1,58 +1,79 @@
-import React, {useState} from "react";
-import axios from "axios";
-require('dotenv').config(); 
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function Homepage() {
-  const [destination, setDestination] = useState("");
-  const [numDays, setNumDays] = useState("");
-  const [dailyBudget, setDailyBudget] = useState("");
-  const [activities, setActivities] = useState("");
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [numDays, setNumDays] = useState('');
+  const [dailyBudget, setDailyBudget] = useState('');
+  const [interests, setInterests] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    const prompt = `Plan a trip to ${destination} for ${numDays} days with a daily budget of ${dailyBudget}. The traveler is interested in ${activities}.`;
-
-    const data = {
-      destination,
-      days,
-      budget,
-      activities
-    };
-  
-
-    const response = await axios.post('', data, {
-      prompt,
-      max_tokens: 500,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-      }
-    });
-
- 
+    axios.post('http://localhost:8080/api/completions', {
+        city,
+        country,
+        numDays,
+        dailyBudget,
+        interests,
+      })
+      .then((response) => {
+        console.log('API response:', response.data.text); // Log the generated text
+      })
+      .catch((error) => {
+        console.error('API error:', error); // Log the error
+      });
   };
 
   return (
     <div>
       <h1>Welcome to ItinerAI!</h1>
       <form onSubmit={handleSubmit}>
-      <label>
-          Destination:
-          <input type="text" name="destination" value={destination} onChange={(e) => setDestination(e.target.value)} />
+        <label>
+          City:
+          <input
+            type="text"
+            name="city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
         </label>
         <label>
-          Number of Days:
-          <input type="number" name="numDays" value={numDays} onChange={(e) => setNumDays(e.target.value)} />
+          Country:
+          <input
+            type="text"
+            name="country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
         </label>
         <label>
-          My Daily Budget:
-          <input type="number" name="dailyBudget" value={dailyBudget} onChange={(e) => setDailyBudget(e.target.value)} />
+          Number of days:
+          <input
+            type="number"
+            name="numDays"
+            value={numDays}
+            onChange={(e) => setNumDays(e.target.value)}
+          />
         </label>
         <label>
-          My Favourite Activities:
-          <input type="text" name="activities" value={activities} onChange={(e) => setActivities(e.target.value)} />
+          My daily budget:
+          <input
+            type="number"
+            name="dailyBudget"
+            value={dailyBudget}
+            onChange={(e) => setDailyBudget(e.target.value)}
+          />
+        </label>
+        <label>
+          I'm interested in:
+          <input
+            type="text"
+            name="interests"
+            value={interests}
+            onChange={(e) => setInterests(e.target.value)}
+          />
         </label>
         <label>
           <input type="submit" value="Submit" />
