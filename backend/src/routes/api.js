@@ -1,5 +1,6 @@
 const Express = require('express');
 const router = Express.Router();
+const { Configuration, OpenAIApi } = require('openai');
 
 // Set up OpenAI API configuration
 const configuration = new Configuration({
