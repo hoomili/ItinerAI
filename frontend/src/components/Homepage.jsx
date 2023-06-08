@@ -19,7 +19,7 @@ function Homepage() {
         interests,
       })
       .then((response) => {
-        console.log('API response:', response.data.text); // Log the generated text
+        console.log('API response:', response); // Log the generated text
       })
       .catch((error) => {
         console.error('API error:', error); // Log the error
