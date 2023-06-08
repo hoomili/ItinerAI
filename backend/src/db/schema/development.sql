@@ -3,17 +3,11 @@ VALUES
 (1, 'John', 'Doe', 'johndoe', 'john.doe@example.com', 'password');
 
 
-INSERT INTO ITINERARIES (id, user_id, search_prompt, number_of_days, interests, daily_budget, accommodations, response_prompt)
+INSERT INTO ITINERARIES (user_id, number_of_days, interests, daily_budget, accommodations, response_prompt)
 VALUES
-(1, 1, 'I want to visit Paris for 7 days with interest in museums and local cuisine, my daily budget is 100 dollars.', 7, 'museums, local cuisine', 100, '3-star hotel', 'Your itinerary for Paris...');
+(1, 7, 'museums, local cuisine', 100, '3-star hotel', 'Your itinerary for Paris...');
 
 
-
-INSERT INTO MAPS (id, itinerary_id, name, city, country, image_url)
+INSERT INTO POINTS (itinerary_id, title, latitude, longitude, description, image_url, rating)
 VALUES
-(1, 1, 'Paris Itinerary', 'Paris', 'France', 'https://lh3.googleusercontent.com/p/AF1QipOnJHzIOu1VUvkTX0GKjmqK-NdgXWJEUa8m2YPd=s680-w680-h510');
-
-
-INSERT INTO POINTS (id, map_id, title, latitude, longitude, description, image_url, rating)
-VALUES
-(1, 1, 'The Louvre', 48.8611473, 2.33802768704666, 'The world largest art museum.', 'https://lh3.googleusercontent.com/p/AF1QipOnJHzIOu1VUvkTX0GKjmqK-NdgXWJEUa8m2YPd=s680-w680-h510', 4.7);
+(1, 'The Louvre', 48.8611473, 2.33802768704666, 'The world largest art museum.', 'https://lh3.googleusercontent.com/p/AF1QipOnJHzIOu1VUvkTX0GKjmqK-NdgXWJEUa8m2YPd=s680-w680-h510', 4.7);
