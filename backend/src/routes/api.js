@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { Configuration, OpenAIApi } = require('openai');
-const {addItinerary, addMap, addPoints} = require('../db/queries/helpers')
+const { Configuration, OpenAIApi } = require("openai");
+const { addItinerary, addMap, addPoints } = require("../db/queries/helpers");
 
 // Set up OpenAI API configuration
 const configuration = new Configuration({
@@ -10,8 +10,8 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // Handle POST requests to '/api/completions'
-router.post('/completions', async (req, res) => {
-  console.log(req.body)
+router.post("/completions", async (req, res) => {
+  console.log(req.body);
   const { city, country, numDays, dailyBudget, interests } = req.body;
 
   const prompt = `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks.
@@ -55,38 +55,39 @@ router.post('/completions', async (req, res) => {
 
   `;
 
-
   try {
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [{"role": "system", "content": "You are a helpful travel assistant bot."}, {"role": "user", "content": prompt}],
+      messages: [
+        { role: "system", content: "You are a helpful travel assistant bot." },
+        { role: "user", content: prompt },
+      ],
       temperature: 0.2,
       max_tokens: 1000,
     });
-    // console.log('response data choices[0].message.content:', response.data.choices[0].message.content);
-    // console.log('response ', response);
 
-    // Insert data into the database
-    const jsonData = JSON.parse(response.data.choices[0].message.content)
-    console.log('jsonData:', jsonData)
+    const jsonData = JSON.parse(response.data.choices[0].message.content);
     const itineraryText = jsonData.itinerary_text;
-    const keyLocations = jsonData.key_locations
-    const accomodation = jsonData.accomodation
+    const keyLocations = jsonData.key_locations;
+    const accomodation = jsonData.accomodation;
+    
+    // console.log("jsonData:", jsonData);
+    // console.log("itinerary text:", itineraryText);
+    // console.log("key locations:", keyLocations);
+    // console.log("accomodation suggestion:", accomodation);
 
-    console.log('itinerary text:', itineraryText)
+    const responseData = {
+      itineraryText,
+      keyLocations,
+      accomodation,
+      city,
+      country,
+    };
 
-    console.log('key locations:', keyLocations)
-    console.log('accomodation suggestion:', accomodation)
-
-    // await addItinerary(1, prompt, numDays, interests, dailyBudget, interests, itineraryText);
-    // await addMap(itineraryId, `'My trip to' + ${city}`, city, country, image_url);
-    // await addPoints(mapId, title, latitude, longitude, description, image_url, rating);
-
-  
-    res.json({ message: 'Response complete' });
+    res.json(responseData);
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred' });
+    console.error("Error:", error);
+    res.status(500).json({ error: "An error occurred" });
   }
 });
 
