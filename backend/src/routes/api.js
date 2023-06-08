@@ -14,7 +14,7 @@ router.post('/completions', async (req, res) => {
   console.log(req.body)
   const { city, country, numDays, dailyBudget, interests } = req.body;
 
-  const prompt = `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks. For each day that your client will be spending in ${city}, provide at least one activity and restaurant to visit (these will be the key locations).
+  const prompt = `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks.
   
   Return the information in JSON format as an object with the following key value pairs and format.
 
@@ -29,16 +29,25 @@ router.post('/completions', async (req, res) => {
   'key_locations': an object which contains the following data (title, latitude and longitude). Select at most two of these key locations per day in the itinerary to share in your response with me.
 
   EXAMPLE:
-  "key_locations": {
-  "Capilano Suspension Bridge Park": {
+  "key_locations": [{
+    "title": "Capilano Suspension Bridge Park" 
     "latitude": 49.343795, 
     "longitude": -123.117183 
 }, 
-
-"Granville Island Public Market": {
+{
+    "title": "Granville Island Public Market" 
     "latitude": 49.270068, 
     "longitude": -123.138456 
-}},
+}]
+
+  Please provide an accomodation option in the form of a key-value pair.
+
+  EXAMPLE:
+  "accomodation": {
+    "title": "Hotel Vancouver"
+    "latitide": 49.2837,
+    "longitude": -123.1211
+  }
 
   DO NOT repeat suggested activities or locations and please make sure the itinerary text is not repetitive in nature.
 
@@ -51,25 +60,29 @@ router.post('/completions', async (req, res) => {
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{"role": "system", "content": "You are a helpful travel assistant bot."}, {"role": "user", "content": prompt}],
-      prompt: prompt,
       temperature: 0.2,
       max_tokens: 1000,
     });
-    console.log('response data choices[0] text:', response.data.choices[0].text);
-    console.log('response ', response);
+    // console.log('response data choices[0].message.content:', response.data.choices[0].message.content);
+    // console.log('response ', response);
 
     // Insert data into the database
-    const itineraryText = response.data.choices[0].text.itinerary_text;
-    const keyLocations = response.data.choices[0].text.key_locations; 
+    const jsonData = JSON.parse(response.data.choices[0].message.content)
+    console.log('jsonData:', jsonData)
+    const itineraryText = jsonData.itinerary_text;
+    const keyLocations = jsonData.key_locations
+    const accomodation = jsonData.accomodation
 
     console.log('itinerary text:', itineraryText)
-    console.log('key locations:', keyLocations)
 
-    // await addItinerary(city, country, numDays, dailyBudget, interests, itineraryText);
-    // const itineraryId = // Retrieve the ID of the inserted itinerary from the database
-    // await addMap(itineraryId, name, city, country, image_url);
+    console.log('key locations:', keyLocations)
+    console.log('accomodation suggestion:', accomodation)
+
+    // await addItinerary(1, prompt, numDays, interests, dailyBudget, interests, itineraryText);
+    // await addMap(itineraryId, `'My trip to' + ${city}`, city, country, image_url);
     // await addPoints(mapId, title, latitude, longitude, description, image_url, rating);
 
+  
     res.json({ message: 'Response complete' });
   } catch (error) {
     console.error('Error:', error);
