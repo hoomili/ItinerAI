@@ -1,0 +1,15 @@
+.itineray-list--item {
+  display: flex;
+}
+
+.itineray-list--item-map {
+  height: 90vh;
+  width: 100%;
+  min-width: 300px;
+  margin: 2rem;
+}
+
+.itineray-list--item-description {
+  margin: 2rem;
+  flex-shrink: 1.5;
+}
