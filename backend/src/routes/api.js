@@ -26,18 +26,18 @@ router.post("/completions", async (req, res) => {
   Day 2: details
   Day 3: details"
 
-  'key_locations': an object which contains the following data (title, latitude and longitude). Select at most two of these key locations per day in the itinerary to share in your response with me.
+  'key_locations': an object which contains the following data (title, lat and lng). Select at most two of these key locations per day in the itinerary to share in your response with me.
 
   EXAMPLE:
   "key_locations": [{
     "title": "Capilano Suspension Bridge Park" 
-    "latitude": 49.343795, 
-    "longitude": -123.117183 
+    "lat": 49.343795, 
+    "lng": -123.117183 
 }, 
 {
     "title": "Granville Island Public Market" 
-    "latitude": 49.270068, 
-    "longitude": -123.138456 
+    "lat": 49.270068, 
+    "lng": -123.138456 
 }]
 
   Please provide an accomodation option in the form of a key-value pair.
@@ -45,8 +45,8 @@ router.post("/completions", async (req, res) => {
   EXAMPLE:
   "accomodation": {
     "title": "Hotel Vancouver"
-    "latitide": 49.2837,
-    "longitude": -123.1211
+    "lat": 49.2837,
+    "lng": -123.1211
   }
 
   DO NOT repeat suggested activities or locations and please make sure the itinerary text is not repetitive in nature.
