@@ -1,0 +1,45 @@
+DROP TABLE IF EXISTS USERS;
+DROP TABLE IF EXISTS ITINERARIES;
+DROP TABLE IF EXISTS MAPS;
+DROP TABLE IF EXISTS POINTS;
+
+CREATE TABLE USERS (
+  id SERIAL PRIMARY KEY NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE ITINERARIES (
+  id INT PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES USERS(id) ON DELETE CASCADE,
+  search_prompt TEXT NOT NULL,
+  number_of_days INTEGER,
+  interests TEXT,
+  daily_budget DECIMAL,
+  accommodations TEXT,
+  response_prompt TEXT
+);
+
+CREATE TABLE MAPS(
+  id INT PRIMARY KEY NOT NULL,
+  itinerary_id INTEGER REFERENCES ITINERARIES(id) ON DELETE CASCADE,
+  name TEXT, 
+  city TEXT, 
+  country TEXT, 
+  image_url TEXT
+);
+
+
+CREATE TABLE POINTS(
+  id INT PRIMARY KEY NOT NULL,
+  map_id INTEGER REFERENCES MAPS(id) ON DELETE CASCADE,
+  title text,
+  latitude DECIMAL,
+  longitude DECIMAL,
+  description TEXT,
+  image_url TEXT,
+  rating DECIMAL
+);
