@@ -1,9 +1,19 @@
 import React from 'react';
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
-// import '../styles/TopicListItem.scss';
+import '../styles/itinerarylistitem.scss';
 
-const ItineraryListItem = (props) => {
-  const { setId } = props;
+const Map = () => {
+  return <GoogleMap zoom={10} center={{lat: 44, lng: -80}} mapContainerClassName="itineray-list--item-map"></GoogleMap>
+}
+console.log(process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY);
+const ItineraryListItem = () => {
+  const {isLoaded} = useLoadScript({
+    googleMapsApiKey: "AIzaSyD79Dws-iRrLi4zeEzMYLxMW7P9oRsGR-s"
+  });
+  if (!isLoaded) {
+    return <div>loading...</div>
+  }
   return (
     <div className="itineray-list--item">
       <h1>Lorem, ipsum dolor.</h1>
@@ -20,8 +30,10 @@ const ItineraryListItem = (props) => {
         Architecto nostrum sunt quas itaque! Id animi pariatur laborum, 
         quam distinctio facilis autem cupiditate perferendis dicta rerum, soluta nulla praesentium voluptatum magnam fugit repudiandae quod eos sint illum fuga doloribus iusto quas placeat! 
         Quasi natus numquam nobis quaerat laborum quisquam eos aliquid.</div>
-        <div className='map'></div>
+        
+        <Map />
     </div>
   );
 };
 export default ItineraryListItem;
+
