@@ -1,12 +1,17 @@
-import React from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React, { useEffect, useState } from "react";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import axios from 'axios'
 
 import "../styles/itinerarylistitem.scss";
-
 const ItineraryListItem = () => {
+  const [points, setPoints] = useState([])
+
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY,
   });
+
+
   if (!isLoaded) {
     return <div>loading...</div>;
   }
@@ -43,7 +48,9 @@ const ItineraryListItem = () => {
         zoom={10}
         center={{ lat: 44, lng: -80 }}
         mapContainerClassName="itineray-list--item-map"
-      ></GoogleMap>
+      >
+        <MarkerF position={{ lat: 44, lng: -80 }}/>
+      </GoogleMap>
 
     </div>
   );
