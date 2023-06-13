@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieSession = require('cookie-session');
 const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 const connectionString = `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
@@ -17,25 +18,37 @@ router.use(
 );
 
 // Login Route
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const query = 'SELECT * FROM users WHERE email = $1 AND password = $2';
-    const values = [email, password];
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const values = [email];
     const result = await pool.query(query, values);
 
     if (result.rows.length > 0) {
       const user = result.rows[0];
-      const { email, username } = user;
-      req.session.user = { email, username };
-      res.status(200).json({ message: 'Login successful', email, username });
+      const hashedPassword = user.password;
+
+      bcrypt.compare(password, hashedPassword, (err, isMatch) => {
+        if (err) {
+          console.error('Error comparing passwords', err);
+          return res.status(500).json({ message: 'Internal server error' });
+        }
+        if (isMatch) {
+          const { email, username } = user;
+          req.session.user = { email, username };
+          return res.status(200).json({ message: 'Login successful', email, username });
+        } else {
+          return res.status(401).json({ message: 'Invalid email or password' });
+        }
+      });
     } else {
-      res.status(401).json({ message: 'Invalid email or password'});
+      res.status(401).json({ message: 'Invalid email or password' });
     }
   } catch (error) {
     console.error('Error executing login query', error);
-    res.status(500).json({ message: 'Internal server error'});
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

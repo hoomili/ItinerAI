@@ -7,6 +7,7 @@ const RegisterNewUser = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [error, setError] = useState('');
 
   const onSubmit = async (event) => {
@@ -26,7 +27,7 @@ const RegisterNewUser = () => {
         password
       });
 
-      console.log('RESPONSE', response)
+      setRegistrationSuccess(true);
 
     setFirstName('');
     setLastName('');
@@ -43,6 +44,7 @@ const RegisterNewUser = () => {
   return (
     <div className='register'>
       {error && <p className="error">{error}</p>}
+      {registrationSuccess && <p className="success">You are successfully registered! Please login.</p>}
       <form onSubmit={onSubmit}>
         <p>
           <input 
