@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
-import logo from '../doc/logo.png'
+import logo from '../images/logo.png'
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useContext(authContext);
