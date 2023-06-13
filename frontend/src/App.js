@@ -4,6 +4,8 @@ import './App.scss';
 import Login from './components/Login';
 import RegisterNewUser from './components/Register';
 import Navbar from './components/TopNavigationBar';
+import './App.scss';
+import Homepage from './components/Homepage';
 import ItineraryListItem from './components/itinerarylistitem';
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
       {showLoginForm && <Login onClose={handleLoginFormClose} />}
       <h1>Project init</h1>
       <RegisterNewUser />
+      <Homepage />
       <ItineraryListItem/>
     </div>
   );
