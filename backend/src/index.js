@@ -1,15 +1,19 @@
 require('dotenv').config();
-const sass = require('sass');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const server = require('http').Server(app);
+const openai = require('openai');
+const sass = require('sass');
 const bodyParser = require('body-parser');
-const cors = require('cors');
-// const apiRoutes = require('./routes/api');
+
+const authRoutes = require('./routes/authRoutes');
+const registerRouter = require('./routes/registerRoute');
 const apiRoutes = require('./routes/api')
 const morgan = require('morgan');
 const { Client } = require('pg');
 
+// app.use(cors());
 
 // Connect to Database
 const client = new Client({
@@ -25,12 +29,15 @@ client.connect();
 
 // Express config
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static('public'))
 app.use(morgan('dev'));
 app.use(cors());
 
 // app.use('/api', apiRoutes)
 app.use('/api', apiRoutes);
+app.use(authRoutes);
+app.use('/register', registerRouter);
 
 // Start the server
 const PORT = process.env.PORT || 8080;
