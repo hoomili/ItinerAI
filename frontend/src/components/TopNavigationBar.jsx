@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
+import logo from '../doc/logo.png'
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useContext(authContext);
@@ -14,7 +15,9 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className='logo'>ItinerAI</div>
+      <div className='logo'>
+        <img src={logo} alt='Logo' />
+      </div>
       <ul>
         {isLoggedIn && user && (
           <>
