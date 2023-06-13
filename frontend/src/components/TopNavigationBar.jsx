@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { authContext } from '../providers/AuthProvider';
 import logo from '../images/logo.png'
 
-const Navbar = () => {
+const Navbar = ({ onLoginLinkClick }) => {
   const { isLoggedIn, user, logout } = useContext(authContext);
 
   const handleLogout = async () => {
@@ -33,7 +33,7 @@ const Navbar = () => {
         {!isLoggedIn && (
           <>
           <li>
-            <a href="/login">Login</a>
+            <a href="#" onClick={onLoginLinkClick}>Login</a>
           </li>
           <li>
             <a href="/register">Register</a>

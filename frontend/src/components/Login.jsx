@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { authContext } from '../providers/AuthProvider';
 
-const Login = () => {
+const Login = ({ onClose }) => {
   const { login } = useContext(authContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,6 +15,7 @@ const Login = () => {
       
       setEmail('');
       setPassword('');
+      onClose();
     } catch (error) {
       console.error(error);
       setError('Login failed; user does not exist');
