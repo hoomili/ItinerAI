@@ -9,7 +9,7 @@ const ItinerarySaveButton = function () {
     event.preventDefault();
 
     axios.post('http://localhost:8080/itineraries', {
-      //need data here
+      imageurl,
     })
     .then(response => {
       console.log(response);
