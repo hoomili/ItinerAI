@@ -3,6 +3,7 @@ import { authContext } from './providers/AuthProvider';
 import './App.scss';
 import Login from './components/Login';
 import Navbar from './components/TopNavigationBar';
+import ItineraryListItem from './components/itinerarylistitem';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <h1>Project init</h1>
       {!isLoggedIn && <Login />}
+      <ItineraryListItem/>
     </div>
   );
 }
