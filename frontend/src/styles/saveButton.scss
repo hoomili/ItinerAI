@@ -1,0 +1,46 @@
+.save-button {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #ff8197;
+  border-radius: 20px;
+  justify-content: center;
+  height: 90px;
+  margin-bottom: 20px;
+
+  label {
+    color: #fff1ed;
+    font-weight: bold;
+    font-size: large;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #fff1ed;
+    max-width: 200px;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: none;
+    color: #FF8197;
+  }
+
+  button {
+    border: none;
+    background-color: #fff1ed;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 10px;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button .heart-icon {
+    margin-right: 8px;
+  }
+}

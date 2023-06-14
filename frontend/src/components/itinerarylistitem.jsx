@@ -5,6 +5,8 @@ import {
   MarkerF,
   InfoWindowF,
 } from "@react-google-maps/api";
+import axios from "axios";
+import { ItinerarySaveButton } from "./itinerarySaveButton";
 
 import "../styles/itinerarylistitem.scss";
 
@@ -202,6 +204,7 @@ const ItineraryListItem = (props) => {
           Awesome Trip to {city}, {country}{" "}
         </h1>
         <div dangerouslySetInnerHTML={{ __html: itinerary }} />
+        <ItinerarySaveButton aiData={props.aiData} />
       </div>
       <GoogleMap
         zoom={18}
