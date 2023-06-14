@@ -10,13 +10,23 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const registerRouter = require('./routes/registerRoute');
 const apiRoutes = require('./routes/api')
+const saveRoute = require('./routes/saved')
 const morgan = require('morgan');
-const { Client } = require('pg');
+// const { Client } = require('pg');
+const { Pool } = require('pg');
 
 // app.use(cors());
 
 // Connect to Database
-const client = new Client({
+// const client = new Client({
+//   host: process.env.PGHOST,
+//   user: process.env.PGUSER,
+//   database: process.env.PGDATABASE,
+//   password: process.env.PGPASSWORD,
+//   port: process.env.PGPORT,
+// });
+
+const db = new Pool({
   host: process.env.PGHOST,
   user: process.env.PGUSER,
   database: process.env.PGDATABASE,
@@ -24,7 +34,15 @@ const client = new Client({
   port: process.env.PGPORT,
 });
 
-client.connect();
+db.connect();
+
+// client.connect((err) => {
+//   if (err) {
+//     console.error('Error connecting to the database:', err);
+//   } else {
+//     console.log('Connected to the database');
+//   }
+// });
 
 
 // Express config
@@ -38,6 +56,7 @@ app.use(cors());
 app.use('/api', apiRoutes);
 app.use(authRoutes);
 app.use('/register', registerRouter);
+app.use('/itineraries', saveRoute(db));
 
 // Start the server
 const PORT = process.env.PORT || 8080;
@@ -45,4 +64,4 @@ server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 
-module.exports = client;
+module.exports = db;
