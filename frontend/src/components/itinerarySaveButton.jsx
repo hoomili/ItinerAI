@@ -2,6 +2,7 @@ import {React, useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import "../styles/saveButton.scss"
 
 
 
@@ -43,7 +44,7 @@ const ItinerarySaveButton = function ({ aiData }) {
       });
   };
   return (
-    <div>
+    <div className="save-button">
       <form onSubmit={handleSave}>
         <label>
           Like this itinerary? Upload a cover photo and click the heart to save it:

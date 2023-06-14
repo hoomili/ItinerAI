@@ -1,0 +1,36 @@
+.save-button {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+
+  label {
+    color: #374B73;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #374B73;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    background-color: #FF8197;
+    color: #FFF1ED;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button .heart-icon {
+    margin-right: 8px;
+  }
+}
