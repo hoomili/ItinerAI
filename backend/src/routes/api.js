@@ -90,22 +90,25 @@ router.post("/completions", async (req, res) => {
       url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURI(title)}%20${city}%20${country}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry%2Cphotos&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`,
       headers: {},})
     };
-    const placesData = await axios(config(accommodation.title));
-    const stay = placesData.data.candidates[0];
+    const stayData = await axios(config(accommodation.title));
+    const stay = stayData.data.candidates[0];
 
 
     // get location info for all the keyLocations
     for (let i = 0; i < keyLocations.length; i++) {
       const element = keyLocations[i].title;
-      const placesData = await axios(config(element, city, country));
+      const placesData = await axios(config(element));
       locations.push(placesData.data.candidates[0]);
     }
 
   
     for (const restaurant of restaurants) {
-      breakfast.push(config(restaurant.breakfast))
-      lunch.push(config(restaurant.lunch))
-      dinner.push(config(restaurant.dinner))
+      const breakfastData = await axios(config(restaurant.breakfast))
+      const lunchData = await axios(config(restaurant.lunch))
+      const dinnerData = await axios(config(restaurant.dinner))
+      breakfast.push(breakfastData.data.candidates[0])
+      lunch.push(lunchData.data.candidates[0])
+      dinner.push(dinnerData.data.candidates[0])
     }
     
 
