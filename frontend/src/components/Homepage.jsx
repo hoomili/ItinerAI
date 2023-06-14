@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Homepage() {
+
+
+function Homepage(props) {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [numDays, setNumDays] = useState('');
   const [dailyBudget, setDailyBudget] = useState('');
   const [interests, setInterests] = useState('');
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,6 +23,7 @@ function Homepage() {
       })
       .then((response) => {
         console.log('API response:', response); // Log the generated text
+        props.setAiData([response.data])
       })
       .catch((error) => {
         console.error('API error:', error); // Log the error
