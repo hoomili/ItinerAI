@@ -1,59 +1,58 @@
-// const db = require("../../index");
-const client = require("../../index")
+const db = require('../../index')
+const query = require('express')
+// const client = require("../../index")
 
 const addItinerary = (
   user_id,
-  search_prompt,
-  number_of_days,
-  interests,
-  daily_budget,
   accommodations,
-  response_prompt
+  response_prompt,
+  city,
+  country,
+  image_url
 ) => {
   console.log(`Adding Itinerary to user's favourites`);
 
   const queryString = `
-  INSERT INTO ITINERARIES (user_id, search_prompt, number_of_days, interests, daily_budget, accomodations, response_prompt)
-  VALUES ($1, $2, $3, $4, $5, $6, $7);
+  INSERT INTO ITINERARIES (user_id, accomodations, response_prompt, city, country, image_url)
+  VALUES ($1, $2, $3, $4, $5, $6);
   `;
 
   const values = [
     user_id,
-    search_prompt,
-    number_of_days,
-    interests,
-    daily_budget,
     accommodations,
     response_prompt,
+    city,
+    country,
+    image_url
   ];
 
-  return client
+  return db
     .query(queryString, values)
     .then(() => {
-      console.log(`Itinerary added to user's saved itineraries`);
-    })
+    console.log(`Itinerary added to user's saved itineraries`);
+  })
     .catch((error) => {
-      console.log("Error adding itinerary to favourites:", error);
-    });
+    console.log("Error adding itinerary to favourites:", error);
+  });
 };
 
-const deleteItinerary = (itinerary_id) => {
-  console.log(`Deleting Itinerary from user's favourites`);
+// const deleteItinerary = (itinerary_id) => {
+//   console.log(`Deleting Itinerary from user's favourites`);
 
-  const queryString = `
-  DELETE FROM ITINERARIES 
-  WHERE id = $1;
-  `;
+//   const queryString = `
+//   DELETE FROM ITINERARIES 
+//   WHERE id = $1;
+//   `;
 
-  return client
-    .query(queryString, [itinerary_id])
-    .then(() => {
-      console.log(`Itinerary deleted from user's saved itineraries`);
-    })
-    .catch((error) => {
-      console.log("Error deleting itinerary from favourites:", error);
-    });
-};
+//   return db
+//     .query(queryString, [itinerary_id])
+//     .then(() => {
+//       console.log(`Itinerary deleted from user's saved itineraries`);
+//     })
+//     .catch((error) => {
+//       console.log("Error deleting itinerary from favourites:", error);
+//     });
+// };
 
 // const addMap = (itinerary_id, name, city, country, image_url) => {
 
@@ -76,4 +75,4 @@ const deleteItinerary = (itinerary_id) => {
 //     .query(queryString, values)
 // }
 
-module.exports = { addItinerary, deleteItinerary, addMap, addPoints };
+module.exports = { addItinerary };
