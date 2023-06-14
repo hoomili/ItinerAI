@@ -1,0 +1,50 @@
+$color-primary: #374B73;
+$color-background: #FFF1ED;
+$color-button-bg: #FF8197;
+$color-button-text: #FFF1ED;
+
+.homepage-container {
+  background-color: #FF8197;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  width: 400px;
+  margin: 0 auto;
+
+  .homepage-title {
+    color: #FFF1ED;
+    margin-bottom: 20px;
+  }
+
+  .homepage-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .homepage-label {
+      color: #FFF1ED;
+      margin-bottom: 10px;
+    }
+
+    .homepage-input {
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      width: 360px;
+    }
+  }
+  
+      .homepage-submit {
+        background-color: #FFE3E3;
+        color: #FF8197;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: auto;
+      }
+}
