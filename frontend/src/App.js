@@ -16,6 +16,7 @@ function App() {
   const { isLoggedIn, user } = useContext(authContext);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userId, setUserId] = useState(null);
+  
 
   const handleLoginLinkClick = () => {
     setShowLoginForm(true);
@@ -26,22 +27,19 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('APP USER ID:', user?.id);
+    // console.log('APP USER ID:', user?.id);
     if (user) {
       setUserId(user.id);
     }
   }, [user]);
-  
+
   return (
     <div className="App">
-      <Navbar onLoginLinkClick={handleLoginLinkClick}/>
+      <Navbar onLoginLinkClick={handleLoginLinkClick} />
       {showLoginForm && <Login onClose={handleLoginFormClose} />}
       {user && <ItineraryList userId={userId} />}
-      <h1>Project init</h1>
-      <RegisterNewUser />
       <Homepage setAiData={setAiData}/>
       {aiData.length > 0 ? <ItineraryListItem aiData={aiData}/>: ''}
-
     </div>
   );
 }
