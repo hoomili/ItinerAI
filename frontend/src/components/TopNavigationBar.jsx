@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { authContext } from "../providers/AuthProvider";
+import { Link } from "react-router-dom";
 import logoSample from "../images/logoSample.jpg";
-import '../styles/TopNavigationBar.scss';
+import "../styles/TopNavigationBar.scss";
 
 const Navbar = ({ onLoginLinkClick }) => {
   const { isLoggedIn, user, logout } = useContext(authContext);
@@ -9,10 +10,12 @@ const Navbar = ({ onLoginLinkClick }) => {
   const handleLogout = async () => {
     try {
       await logout();
+      // window.location.href = "/"
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
+ 
 
   return (
     <nav>
@@ -21,13 +24,15 @@ const Navbar = ({ onLoginLinkClick }) => {
           <img src={logoSample} />
         </div>
         <ul>
-        <li className="nav-item">
-            <a className="nav-link" href="/">Create Itinerary</a>
+          <li className="nav-item">
+            <Link to="/">
+              Create Itinerary
+            </Link>
           </li>
           {isLoggedIn && user && (
             <>
-            <li className="nav-item">
-                <a href="/my-itineraries">My Itineraries</a>
+              <li className="nav-item">
+                <Link to="/my-itineraries">My Itineraries</Link>
               </li>
               <li className="nav-welcome">Welcome, {user.email}</li>
               <li className="nav-item">
@@ -40,12 +45,14 @@ const Navbar = ({ onLoginLinkClick }) => {
           {!isLoggedIn && (
             <>
               <li className="nav-item">
-                <a className="nav-link" href="#" onClick={onLoginLinkClick}>
+                <Link to="/login">
                   Login
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/register">Register</a>
+                <Link to="/register">
+                  Register
+                </Link>
               </li>
             </>
           )}
