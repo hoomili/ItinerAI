@@ -6,19 +6,18 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 import axios from "axios";
+import { ItinerarySaveButton } from "./itinerarySaveButton";
 
 import "../styles/itinerarylistitem.scss";
 
-
 const ItineraryListItem = (props) => {
   const [map, setMap] = useState(null);
-  const itinerary = props.aiData[0].itineraryText
-  const points = props.aiData[0].keyLocations
-  const accomodation = props.aiData[0].accomodation
-  const city = props.aiData[0].city
-  const country = props.aiData[0].country
-
-
+  const itinerary = props.aiData[0].itineraryText;
+  const points = props.aiData[0].keyLocations;
+  const accomodation = props.aiData[0].accomodation;
+  const city = props.aiData[0].city;
+  const country = props.aiData[0].country;
+  console.log("props, aiData:", props.aiData);
 
   // const config = {
   //   method: "get",
@@ -27,16 +26,15 @@ const ItineraryListItem = (props) => {
   //   crossdomain: true
   // };
   // useEffect(() => {
-    // axios(config)
-    //   .then(function (response) {
-    //     setInfo([response.data]);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    
-  // }, [])
+  //   axios(config)
+  //     .then(function (response) {
+  //       setInfo([response.data]);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
 
+  // }, [])
 
   // get the api key for the map
   const { isLoaded } = useLoadScript({
@@ -48,7 +46,7 @@ const ItineraryListItem = (props) => {
     const bounds = new window.google.maps.LatLngBounds(accomodation);
     for (let i = 0; i < points.length; i++) {
       const element = points[i];
-      console.log('each point', element);
+      console.log("each point", element);
       const newCoord = new window.google.maps.LatLng(element.lat, element.lng);
       bounds.extend(newCoord);
     }
@@ -62,21 +60,21 @@ const ItineraryListItem = (props) => {
 
   // setting up the points for the map
   const newPoints = points.map((position) => {
-    return <MarkerF position={position} label={points.title}/>;
+    return <MarkerF position={position} label={points.title} />;
   });
-  
 
   if (!isLoaded) {
     return <div>loading...</div>;
-  } 
+  }
 
   return (
     <div className="itineray-list--item">
       <div className="itineray-list--item-description">
-        <h1>Awesome Trip to {city}, {country} </h1>
-        <article>
-          {itinerary}
-        </article>
+        <h1>
+          Awesome Trip to {city}, {country}{" "}
+        </h1>
+        <ItinerarySaveButton aiData={props.aiData} />
+        <article>{itinerary}</article>
       </div>
       <GoogleMap
         zoom={18}
@@ -84,10 +82,13 @@ const ItineraryListItem = (props) => {
         onUnmount={onUnmount}
         mapContainerClassName="itineray-list--item-map"
       >
-        <MarkerF position={accomodation} icon={{
-          url: (require('./../styles/hotel.png')),
-          scaledSize: new window.google.maps.Size(30, 30),
-            }}/>
+        <MarkerF
+          position={accomodation}
+          icon={{
+            url: require("./../styles/hotel.png"),
+            scaledSize: new window.google.maps.Size(30, 30),
+          }}
+        />
         {newPoints}
       </GoogleMap>
     </div>

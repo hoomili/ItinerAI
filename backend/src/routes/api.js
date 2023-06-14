@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Configuration, OpenAIApi } = require("openai");
-const { addItinerary, addMap, addPoints } = require("../db/queries/helpers");
+// const { addItinerary, addMap, addPoints } = require("../db/queries/helpers");
 
 // Set up OpenAI API configuration
 const configuration = new Configuration({
@@ -11,7 +11,7 @@ const openai = new OpenAIApi(configuration);
 
 // Handle POST requests to '/api/completions'
 router.post("/completions", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { city, country, numDays, dailyBudget, interests } = req.body;
 
   const prompt = `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks.
@@ -40,10 +40,10 @@ router.post("/completions", async (req, res) => {
     "lng": -123.138456 
 }]
 
-  Please provide an accomodation option in the form of a key-value pair.
+  Please provide an accommodation option in the form of a key-value pair.
 
   EXAMPLE:
-  "accomodation": {
+  "accommodation": {
     "title": "Hotel Vancouver"
     "lat": 49.2837,
     "lng": -123.1211
@@ -54,6 +54,41 @@ router.post("/completions", async (req, res) => {
   Your entire response should be in JSON format, nothing else. 
 
   `;
+
+// `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks. Your itinerary should also include suggested accommodations for each different city you suggest.
+  
+// //   Return the information in JSON format as an object with the following key value pairs and format.
+
+// //   'itinerary_text': HTML formatted text that is well-designed and spaced appropriately. It should include the entirety of the written itinerary you have developed.
+
+// //   EXAMPLE:
+// //   "itinerary_text":
+// //   "Day 1: details
+// //   Day 2: details
+// //   Day 3: details"
+
+// //   'key_locations': an object which contains the title of key locations suggested in the itinerary. Select at least two key locations per day in the itinerary and share them in your response with me in the below example format.
+
+// //   EXAMPLE:
+// //   "key_locations": [{
+// //     "title": "Capilano Suspension Bridge Park" 
+// // }, 
+// // {
+// //     "title": "Granville Island Public Market" 
+// // }]
+
+// //   'accommodation': an object which contains a suggested accommodation option in the form of a key-value pair. This should be noted as it's own object in your response.
+
+// //   EXAMPLE:
+// //   "accommodation": {
+// //     "title": "Hotel Vancouver"
+// //   }
+
+// //   DO NOT repeat suggested activities or locations and please make sure the itinerary text is not repetitive in nature.
+
+// //   Your entire response should be in JSON format, nothing else. 
+
+// //   `;
 
   try {
     const response = await openai.createChatCompletion({
@@ -69,17 +104,17 @@ router.post("/completions", async (req, res) => {
     const jsonData = JSON.parse(response.data.choices[0].message.content);
     const itineraryText = jsonData.itinerary_text;
     const keyLocations = jsonData.key_locations;
-    const accomodation = jsonData.accomodation;
+    const accommodation = jsonData.accommodation;
     
-    // console.log("jsonData:", jsonData);
-    // console.log("itinerary text:", itineraryText);
-    // console.log("key locations:", keyLocations);
-    // console.log("accomodation suggestion:", accomodation);
+    console.log("jsonData:", jsonData);
+    console.log("itinerary text:", itineraryText);
+    console.log("key locations:", keyLocations);
+    console.log("accomodation suggestion:", accommodation);
 
     const responseData = {
       itineraryText,
       keyLocations,
-      accomodation,
+      accommodation,
       city,
       country,
     };
