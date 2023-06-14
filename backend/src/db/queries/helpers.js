@@ -15,8 +15,9 @@ const addItinerary = (
 
   const queryString = `
     INSERT INTO ITINERARIES (user_id, accommodations, response_prompt, city, country, image_url)
-    VALUES ($1, $2, $3, $4, $5, $6);
-  `;
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING id;
+    `;
 
   const values = [
     user_id,
@@ -30,22 +31,44 @@ const addItinerary = (
   return db
     .connect()
     .then((client) => {
-      return client.query(queryString, values)
-        .then(() => {
-          console.log(`Itinerary added to user's saved itineraries`);
+      return client
+        .query(queryString, values)
+        .then((result) => {
+          const itinerary_id = result.rows[0].id; // Access the itinerary_id from the result
+          console.log(`Itinerary added to user's saved itineraries with id ${itinerary_id}`);
           client.release(); // Release the client back to the pool
+          return itinerary_id; // Return the itinerary_id
         })
         .catch((error) => {
           console.log("Error adding itinerary to favourites:", error);
           client.release(); // Release the client back to the pool
-          throw error; // Propagate the error to the outer catch block
+          throw error;
         });
     })
     .catch((error) => {
       console.log("Error acquiring client:", error);
-      throw error; // Propagate the error to the outer catch block
+      throw error;
     });
 };
+
+
+const addPoints = (itinerary_id, title, latitude, longitude, description, image_url, rating, db) => {
+  const queryString = `
+  INSERT INTO POINTS (itinerary_id, title, latitude, longitude, description, image_url, rating)
+  VALUES ($1, $2, $3, $4, $5, $6, $7)
+  `;
+  const values = [itinerary_id, title, latitude, longitude, description, image_url, rating];
+  
+  return db
+  .query(queryString, values)
+  .then(() => {
+    console.log(`Point added to itinerary with id ${itinerary_id}`);
+  })
+  .catch((error) => {
+    console.log("Error adding point to itinerary:", error);
+  });
+};
+
 // const deleteItinerary = (itinerary_id) => {
 //   console.log(`Deleting Itinerary from user's favourites`);
 
@@ -63,26 +86,4 @@ const addItinerary = (
 //       console.log("Error deleting itinerary from favourites:", error);
 //     });
 // };
-
-// const addMap = (itinerary_id, name, city, country, image_url) => {
-
-//   const queryString = `
-//   INSERT INTO MAPS (itinerary_id, name, city, country, image_url)
-//   VALUES ($1, $2, $3, $4, $5)
-//   `
-//   const values = [itinerary_id, name, city, country, image_url]
-//   return db
-//     .query(queryString, values)
-// }
-// const addPoints = (map_id, title, latitude, longitude, description, image_url, rating) => {
-
-//   const queryString = `
-//   INSERT INTO POINTS(map_id, title, latitude, longitude, description, image_url, rating)
-//   VALUES ($1, $2, $3, $4, $5, $6, $7)
-//   `
-//   const values = [map_id, title, latitude, longitude, description, image_url, rating]
-//   return db
-//     .query(queryString, values)
-// }
-
-module.exports = { addItinerary };
+module.exports = { addItinerary, addPoints };

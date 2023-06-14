@@ -13,6 +13,7 @@ const ItinerarySaveButton = function ({ aiData }) {
   const response_prompt = aiData[0].itineraryText
   const city = aiData[0].city
   const country = aiData[0].country
+  const points = aiData[0].keyLocations;
 
 
   const handleImageChange = (event) => {
@@ -32,6 +33,7 @@ const ItinerarySaveButton = function ({ aiData }) {
         city: city,
         country: country,
         image_url: imageUrl,
+        points: points,
       })
       .then((response) => {
         console.log(response);
