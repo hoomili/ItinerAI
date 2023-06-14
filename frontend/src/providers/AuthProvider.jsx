@@ -16,7 +16,9 @@ const AuthProvider = (props) => {
 
       if (response.status === 200) {
         setIsLoggedIn(true);
-        setUser({ email });
+        const userData = response.data
+        console.log('USER DATA:', userData);
+        setUser({ id: userData.id, email: userData.email });
       }
       return response;
     } catch (error) {
@@ -47,3 +49,4 @@ const AuthProvider = (props) => {
 };
 
 export default AuthProvider;
+

@@ -36,9 +36,9 @@ router.post('/login', async (req, res) => {
           return res.status(500).json({ message: 'Internal server error' });
         }
         if (isMatch) {
-          const { email, username } = user;
-          req.session.user = { email, username };
-          return res.status(200).json({ message: 'Login successful', email, username });
+          const { email, id } = user;
+          req.session.user = { email, id };
+          return res.status(200).json({ message: 'Login successful', email, id });
         } else {
           return res.status(401).json({ message: 'Invalid email or password' });
         }

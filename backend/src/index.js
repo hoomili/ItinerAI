@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 
 const authRoutes = require('./routes/authRoutes');
 const registerRouter = require('./routes/registerRoute');
+const itinerariesRouter = require('./routes/itinerariesRoute');
 const apiRoutes = require('./routes/api')
 const morgan = require('morgan');
 const { Client } = require('pg');
@@ -38,6 +39,7 @@ app.use(cors());
 app.use('/api', apiRoutes);
 app.use(authRoutes);
 app.use('/register', registerRouter);
+app.use('/itineraries', itinerariesRouter)
 
 // Start the server
 const PORT = process.env.PORT || 8080;
