@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -9,74 +9,107 @@ import axios from "axios";
 
 import "../styles/itinerarylistitem.scss";
 
-
 const ItineraryListItem = (props) => {
   const [map, setMap] = useState(null);
-  const itinerary = props.aiData[0].itineraryText
-  const points = props.aiData[0].keyLocations
-  const accomodation = props.aiData[0].accomodation
-  const city = props.aiData[0].city
-  const country = props.aiData[0].country
+  const itinerary = props.aiData[0].itineraryText;
+  const points = props.aiData[0].locations;
+  const breakfast = props.aiData[0].breakfast;
+  const lunch = props.aiData[0].lunch;
+  const dinner = props.aiData[0].dinner;
+  const accommodation = props.aiData[0].stay;
+  const city = props.aiData[0].city;
+  const country = props.aiData[0].country;
+  const [activeMarker, setActiveMarker] = useState(null);
+  let id = 0;
+  const mapBoundry = points.concat(breakfast, lunch, dinner)
 
-
-
-  // const config = {
-  //   method: "get",
-  //   url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Blue%20Water%20Cafe%20vancouver%20canada&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`,
-  //   headers: {},
-  //   crossdomain: true
-  // };
-  // useEffect(() => {
-    // axios(config)
-    //   .then(function (response) {
-    //     setInfo([response.data]);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    
-  // }, [])
-
+  const handleActiveMarker = (marker) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
 
   // get the api key for the map
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY,
   });
 
+  // setting up the points for the map
+  const markerGenerator = (arr, icon) => {
+    const newPoints = arr.map((position) => {
+      id++;
+      return (
+        <MarkerF
+          key={id}
+          position={position.geometry.location}
+          onClick={() => handleActiveMarker(id)}
+          icon={{
+            url: require(icon),
+            scaledSize: new window.google.maps.Size(30, 30),
+          }}
+        >
+          {activeMarker === id ? (
+            <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+              <div className="itineray-list--item-map-infoWindow">
+                <div>
+                  <h3>{position.name}</h3>
+                  <p>
+                    <strong>Address:</strong> {position.formatted_address}
+                    <br />
+                    <strong>Rating:</strong> {position.rating}/5 ⭐
+                  </p>
+                </div>
+                <img
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${position.photos[0].photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
+                  alt={position.name}
+                />
+              </div>
+            </InfoWindowF>
+          ) : null}
+        </MarkerF>
+      );
+    });
+    return newPoints;
+  };
+
+const activities = markerGenerator(points, "./../styles/sightseeing.png")
+const breakfastMark = markerGenerator(points, "./../styles/coffee.png")
+const lunchMark = markerGenerator(points, "./../styles/lunch.png")
+const dinnerMark = markerGenerator(points, "./../styles/dinner.png")
+
+
   // set boundry for the map
   const onLoad = useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds(accomodation);
-    for (let i = 0; i < points.length; i++) {
-      const element = points[i];
-      console.log('each point', element);
+    const bounds = new window.google.maps.LatLngBounds(
+      accommodation.geometry.location
+    );
+    for (let i = 0; i < mapBoundry.length; i++) {
+      const element = mapBoundry[i].geometry.location;
+      console.log("each point", element);
       const newCoord = new window.google.maps.LatLng(element.lat, element.lng);
       bounds.extend(newCoord);
     }
     map.fitBounds(bounds);
     setMap(map);
   }, []);
-
+  console.log(accommodation.photos);
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
 
-  // setting up the points for the map
-  const newPoints = points.map((position) => {
-    return <MarkerF position={position} label={points.title}/>;
-  });
-  
-
+  console.log("what do i get", itinerary);
   if (!isLoaded) {
     return <div>loading...</div>;
-  } 
+  }
 
   return (
     <div className="itineray-list--item">
       <div className="itineray-list--item-description">
-        <h1>Awesome Trip to {city}, {country} </h1>
-        <article>
-          {itinerary}
-        </article>
+        <h1>
+          Awesome Trip to {city}, {country}{" "}
+        </h1>
+        <div dangerouslySetInnerHTML={{ __html: itinerary }} />
       </div>
       <GoogleMap
         zoom={18}
@@ -84,11 +117,43 @@ const ItineraryListItem = (props) => {
         onUnmount={onUnmount}
         mapContainerClassName="itineray-list--item-map"
       >
-        <MarkerF position={accomodation} icon={{
-          url: (require('./../styles/hotel.png')),
-          scaledSize: new window.google.maps.Size(30, 30),
-            }}/>
-        {newPoints}
+        <MarkerF
+          position={accommodation.geometry.location}
+          onClick={() => handleActiveMarker(100)}
+          icon={{
+            url: require("./../styles/hotel.png"),
+            scaledSize: new window.google.maps.Size(30, 30),
+          }}
+        >
+          {activeMarker === 100 ? (
+            <InfoWindowF
+              options={{
+                pane: "mapPane",
+                maxWidth: "350",
+              }}
+              onCloseClick={() => setActiveMarker(null)}
+            >
+              <div className="itineray-list--item-map-infoWindow">
+                <div>
+                  <h3>{accommodation.name}</h3>
+                  <p>
+                    <strong>Address:</strong> {accommodation.formatted_address}{" "}
+                    <br />
+                    <strong>Rating:</strong> {accommodation.rating}/5 ⭐
+                  </p>
+                </div>
+                <img
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${accommodation.photos[0].photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
+                  alt={accommodation.name}
+                />
+              </div>
+            </InfoWindowF>
+          ) : null}
+        </MarkerF>
+        {activities}
+        {breakfastMark}
+        {lunchMark}
+        {dinnerMark}
       </GoogleMap>
     </div>
   );

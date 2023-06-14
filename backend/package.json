@@ -18,6 +18,9 @@
     "pg": "^8.11.0"
   },
   "devDependencies": {
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "cookie-session": "^2.0.0",
     "openai": "^3.2.1",
     "sass": "^1.63.3"
   }
