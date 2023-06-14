@@ -56,7 +56,7 @@ app.use(cors());
 app.use('/api', apiRoutes);
 app.use(authRoutes);
 app.use('/register', registerRouter);
-app.use('/itineraries', saveRoute);
+app.use('/itineraries', saveRoute(db));
 
 // Start the server
 const PORT = process.env.PORT || 8080;

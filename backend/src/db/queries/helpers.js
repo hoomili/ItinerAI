@@ -8,13 +8,14 @@ const addItinerary = (
   response_prompt,
   city,
   country,
-  image_url
+  image_url,
+  db
 ) => {
   console.log(`Adding Itinerary to user's favourites`);
 
   const queryString = `
-  INSERT INTO ITINERARIES (user_id, accomodations, response_prompt, city, country, image_url)
-  VALUES ($1, $2, $3, $4, $5, $6);
+    INSERT INTO ITINERARIES (user_id, accommodations, response_prompt, city, country, image_url)
+    VALUES ($1, $2, $3, $4, $5, $6);
   `;
 
   const values = [
@@ -27,15 +28,24 @@ const addItinerary = (
   ];
 
   return db
-    .query(queryString, values)
-    .then(() => {
-    console.log(`Itinerary added to user's saved itineraries`);
-  })
+    .connect()
+    .then((client) => {
+      return client.query(queryString, values)
+        .then(() => {
+          console.log(`Itinerary added to user's saved itineraries`);
+          client.release(); // Release the client back to the pool
+        })
+        .catch((error) => {
+          console.log("Error adding itinerary to favourites:", error);
+          client.release(); // Release the client back to the pool
+          throw error; // Propagate the error to the outer catch block
+        });
+    })
     .catch((error) => {
-    console.log("Error adding itinerary to favourites:", error);
-  });
+      console.log("Error acquiring client:", error);
+      throw error; // Propagate the error to the outer catch block
+    });
 };
-
 // const deleteItinerary = (itinerary_id) => {
 //   console.log(`Deleting Itinerary from user's favourites`);
 
