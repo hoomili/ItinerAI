@@ -15,12 +15,11 @@ CREATE TABLE USERS (
 CREATE TABLE ITINERARIES (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES USERS(id) ON DELETE CASCADE,
-  search_prompt TEXT NOT NULL,
-  number_of_days INTEGER,
-  interests TEXT,
-  daily_budget DECIMAL,
   accommodations TEXT,
-  response_prompt TEXT
+  response_prompt TEXT,
+  city TEXT,
+  country TEXT,
+  image_url TEXT
 );
 
 CREATE TABLE MAPS(
