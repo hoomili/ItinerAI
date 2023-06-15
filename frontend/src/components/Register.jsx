@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "../styles/Register.scss";
 
 const RegisterNewUser = () => {
   const [firstName, setFirstName] = useState('');
@@ -9,6 +12,8 @@ const RegisterNewUser = () => {
   const [password, setPassword] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -28,6 +33,12 @@ const RegisterNewUser = () => {
       });
 
       setRegistrationSuccess(true);
+      
+      const loginResponse = await login(email, password);
+
+      if (loginResponse.status === 200) {
+        navigate('/');
+      }
 
     setFirstName('');
     setLastName('');
@@ -42,12 +53,13 @@ const RegisterNewUser = () => {
   };
 
   return (
-    <div className='register'>
+    <div className='register-container'>
+      <h1 className='register-message'>Hey, Fellow Traveler! Sign up to get started on your next adventure!</h1>
       {error && <p className="error">{error}</p>}
       {registrationSuccess && <p className="success">You are successfully registered! Please login.</p>}
       <form onSubmit={onSubmit}>
         <p>
-          <input 
+          <input className='register-input'
           type='text' 
           name='firstName'
             value={firstName} 
@@ -55,7 +67,7 @@ const RegisterNewUser = () => {
             onChange={event => setFirstName(event.target.value)} />
         </p>
         <p>
-        <input 
+        <input className='register-input'
           type='text' 
           name='lastName'
             value={lastName} 
@@ -63,7 +75,7 @@ const RegisterNewUser = () => {
             onChange={event => setLastName(event.target.value)} />
         </p>
         <p>
-        <input 
+        <input className='register-input'
           type='email' 
           name='email'
             value={email} 
@@ -71,7 +83,7 @@ const RegisterNewUser = () => {
             onChange={event => setEmail(event.target.value)} />
         </p>
         <p>
-        <input 
+        <input className='register-input'
           type='text' 
           name='username'
             value={username} 
@@ -79,15 +91,15 @@ const RegisterNewUser = () => {
             onChange={event => setUsername(event.target.value)} />
         </p>
         <p>
-        <input 
+        <input className='register-input'
           type='password' 
           name='password'
             value={password} 
             placeholder='Enter password here'
             onChange={event => setPassword(event.target.value)} />
         </p>
-        <p className='submit'>
-          <button type='submit' name='submit'>Register</button>
+        <p>
+          <button className='register-submit' type='submit' name='submit'>Sign Up</button>
         </p>
       </form>
     </div>
