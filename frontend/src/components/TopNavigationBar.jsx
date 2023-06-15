@@ -34,9 +34,9 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link to="/my-itineraries">My Itineraries</Link>
               </li>
-              <li className="nav-welcome">Welcome, {user.first_name}</li>
+              <li className="nav-welcome">Hey, {user.first_name}!</li>
               <li className="nav-item">
-                <button className="nav-button" onClick={handleLogout}>
+                <button className="nav-button--logout" onClick={handleLogout}>
                   Logout
                 </button>
               </li>

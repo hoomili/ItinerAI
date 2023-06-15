@@ -32,6 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterNewUser />} />
           <Route path="/my-itineraries" element={user && <ItineraryList userId={userId}/>} />
+          <Route path="/itinerary/:id" element={<ItineraryListItem aiData={aiData}/>} />
           <Route exact path="/" element={<Homepage setAiData={setAiData}/>} />
         </Routes>
         {aiData.length > 0 ? <ItineraryListItem aiData={aiData} /> : ""}

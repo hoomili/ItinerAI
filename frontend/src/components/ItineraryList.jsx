@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import "../styles/ItineraryList.scss";
 
 const ItineraryList = ({ userId }) => {
   const [itineraries, setItineraries] = useState([]);
@@ -46,23 +48,32 @@ const ItineraryList = ({ userId }) => {
   // );
   return (
     <ul className="itinerary-list">
+      <h1 className="itinerary-header">My Trips</h1>
       {itineraries.length === 0 ? (
-        <h2>
+        <h2 className="itinerary-empty">
           It looks like you don't have any saved itineraries! Click Create
           Itinerary to get started!
         </h2>
       ) : (
         itineraries.map((itinerary) => (
-          <li key={itinerary.id}>
-            {/* Render itinerary details */}
+          <div className="itinerary-item--container" key={itinerary.id}>
+          <div className="itinerary-item">
+          <li>
+          <Link to={`/itinerary/${itinerary.id}`}>
+                  <img
+                    className="itinerary-item--photo"
+                    src={itinerary.image_url}
+                    alt={itinerary.name}
+                  />
+                </Link>
+            <div className="itinerary-item--location">
             <h3>
               {itinerary.city}, {itinerary.country}
             </h3>
-            {/* <p>{itinerary.description}</p>
-            <p>Created by: {itinerary.username}</p> */}
-            {/* Render map image */}
-            <img src={itinerary.image_url} alt={itinerary.name} />
+            </div>
           </li>
+          </div>
+          </div>
         ))
       )}
     </ul>
