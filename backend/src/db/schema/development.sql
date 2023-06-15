@@ -1,6 +1,6 @@
 INSERT INTO USERS (first_name, last_name, username, email, password)
 VALUES
-('John', 'Doe', 'johndoe', 'john.doe@example.com', 'password');
+('John', 'Doe', 'johndoe', 'john.doe@example.com', '$2b$10$wIvsSL7/eIt1HDyCsNeJoeESkly2dA7iWcP9bQWXrSWDETu159u/i');
 
 
 INSERT INTO ITINERARIES (user_id, accommodations, response_prompt, city, country, image_url)

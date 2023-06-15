@@ -1,38 +1,42 @@
-import { useContext, useState } from 'react';
-import { authContext } from './providers/AuthProvider';
-import './App.scss';
-import Login from './components/Login';
-import RegisterNewUser from './components/Register';
-import Navbar from './components/TopNavigationBar';
-import './App.scss';
-import Homepage from './components/Homepage';
-import ItineraryListItem from './components/itinerarylistitem';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "./providers/AuthProvider";
+import "./App.scss";
+import Login from "./components/Login";
+import RegisterNewUser from "./components/Register";
+import Navbar from "./components/TopNavigationBar";
+import "./App.scss";
+import Homepage from "./components/Homepage";
+import ItineraryList from "./components/ItineraryList";
+import ItineraryListItem from "./components/itinerarylistitem";
 import { pointsContext } from "./components/context";
 
 function App() {
   const [aiData, setAiData] = useState([]);
 
-  const { isLoggedIn } = useContext(authContext);
-  const [showLoginForm, setShowLoginForm] = useState(false);
+  const { isLoggedIn, user } = useContext(AuthContext);
+  const [userId, setUserId] = useState(null);
 
-  const handleLoginLinkClick = () => {
-    setShowLoginForm(true);
-  };
 
-  const handleLoginFormClose = () => {
-    setShowLoginForm(false);
-  };
-  
+  useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+    }
+  }, [user]);
+
   return (
-    <div className="App">
-      <Navbar onLoginLinkClick={handleLoginLinkClick}/>
-      {showLoginForm && <Login onClose={handleLoginFormClose} />}
-      <h1>Project init</h1>
-      <RegisterNewUser />
-      <Homepage setAiData={setAiData}/>
-      {aiData.length > 0 ? <ItineraryListItem aiData={aiData}/>: ''}
-
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterNewUser />} />
+          <Route path="/my-itineraries" element={user && <ItineraryList userId={userId}/>} />
+          <Route exact path="/" element={<Homepage setAiData={setAiData}/>} />
+        </Routes>
+        {aiData.length > 0 ? <ItineraryListItem aiData={aiData} /> : ""}
+      </div>
+    </Router>
   );
 }
 

@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 
 const authRoutes = require('./routes/authRoutes');
 const registerRouter = require('./routes/registerRoute');
+const itinerariesRouter = require('./routes/itinerariesRoute');
 const apiRoutes = require('./routes/api')
 const saveRoute = require('./routes/saved')
 const morgan = require('morgan');
@@ -50,12 +51,17 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.static('public'))
 app.use(morgan('dev'));
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 // app.use('/api', apiRoutes)
 app.use('/api', apiRoutes);
 app.use(authRoutes);
 app.use('/register', registerRouter);
+app.use('/itineraries', itinerariesRouter)
 app.use('/itineraries', saveRoute(db));
 
 // Start the server
