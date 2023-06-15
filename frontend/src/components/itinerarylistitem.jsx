@@ -21,9 +21,8 @@ const ItineraryListItem = (props) => {
   const city = props.aiData[0].city;
   const country = props.aiData[0].country;
   const [activeMarker, setActiveMarker] = useState(null);
-  let id = 0;
   const mapBoundry = points.concat(breakfast, lunch, dinner);
-  console.log(mapBoundry);
+
 
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {
@@ -39,120 +38,14 @@ const ItineraryListItem = (props) => {
 
   // setting up the points for the map
 
-  const activities = points.map((position) => {
-    id++;
+  const activities = mapBoundry.map((position, index) => {
     return (
       <MarkerF
-        key={id}
+        key={index}
         position={position.geometry.location}
-        onClick={() => handleActiveMarker(id)}
-        icon={{
-          url: require("../styles/sightseeing.png"),
-          scaledSize: new window.google.maps.Size(30, 30),
-        }}
+        onClick={() => handleActiveMarker(index)}
       >
-        {activeMarker === id ? (
-          <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-            <div className="itineray-list--item-map-infoWindow">
-              <div>
-                <h3>{position.name}</h3>
-                <p>
-                  <strong>Address:</strong> {position.formatted_address}
-                  <br />
-                  <strong>Rating:</strong> {position.rating}/5 ⭐
-                </p>
-              </div>
-              <img
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${position.photos[0].photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
-                alt={position.name}
-              />
-            </div>
-          </InfoWindowF>
-        ) : null}
-      </MarkerF>
-    );
-  });
-  const breakfastMark = breakfast.map((position) => {
-    id++;
-    return (
-      <MarkerF
-        key={id}
-        position={position.geometry.location}
-        onClick={() => handleActiveMarker(id)}
-        icon={{
-          url: require("../styles/sightseeing.png"),
-          scaledSize: new window.google.maps.Size(30, 30),
-        }}
-      >
-        {activeMarker === id ? (
-          <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-            <div className="itineray-list--item-map-infoWindow">
-              <div>
-                <h3>{position.name}</h3>
-                <p>
-                  <strong>Address:</strong> {position.formatted_address}
-                  <br />
-                  <strong>Rating:</strong> {position.rating}/5 ⭐
-                </p>
-              </div>
-              <img
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${position.photos[0].photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
-                alt={position.name}
-              />
-            </div>
-          </InfoWindowF>
-        ) : null}
-      </MarkerF>
-    );
-  });
-
-  const lunchMark = lunch.map((position) => {
-    id++;
-    return (
-      <MarkerF
-        key={id}
-        position={position.geometry.location}
-        onClick={() => handleActiveMarker(id)}
-        icon={{
-          url: require("../styles/sightseeing.png"),
-          scaledSize: new window.google.maps.Size(30, 30),
-        }}
-      >
-        {activeMarker === id ? (
-          <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-            <div className="itineray-list--item-map-infoWindow">
-              <div>
-                <h3>{position.name}</h3>
-                <p>
-                  <strong>Address:</strong> {position.formatted_address}
-                  <br />
-                  <strong>Rating:</strong> {position.rating}/5 ⭐
-                </p>
-              </div>
-              <img
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${position.photos[0].photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
-                alt={position.name}
-              />
-            </div>
-          </InfoWindowF>
-        ) : null}
-      </MarkerF>
-    );
-  });
-
-  const dinnerMark = dinner.map((position) => {
-    id++;
-    return (
-      <MarkerF
-        key={id}
-        position={position.geometry.location}
-        onClick={() => handleActiveMarker(id)}
-        icon={{
-          url: require("../styles/sightseeing.png"),
-          scaledSize: new window.google.maps.Size(30, 30),
-        }}
-      >
-        {activeMarker === id ? (
+        {activeMarker === index ? (
           <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
             <div className="itineray-list--item-map-infoWindow">
               <div>
@@ -205,6 +98,7 @@ const ItineraryListItem = (props) => {
         </h1>
         <div dangerouslySetInnerHTML={{ __html: itinerary }} />
         <ItinerarySaveButton aiData={props.aiData} />
+
       </div>
       <GoogleMap
         zoom={18}
@@ -246,9 +140,6 @@ const ItineraryListItem = (props) => {
           ) : null}
         </MarkerF>
         {activities}
-        {breakfastMark}
-        {lunchMark}
-        {dinnerMark}
       </GoogleMap>
     </div>
   );

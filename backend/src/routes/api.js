@@ -19,7 +19,7 @@ router.post("/completions", async (req, res) => {
   
     Return the information in JSON format as an object with the following key value pairs and format.
   
-    'itinerary_text': HTML formatted text that is well-designed and spaced appropriately. It should include the entirety of the written itinerary you have developed.
+    'itinerary_text': HTML formatted text that is well-designed and spaced appropriately. It should include the entirety of the written itinerary you have developed. Have each of your suggestions to be bold in the HTML.
   
     EXAMPLE:
     "itinerary_text":
