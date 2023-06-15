@@ -16,62 +16,72 @@ router.post("/completions", async (req, res) => {
   const { city, country, numDays, dailyBudget, interests } = req.body;
 
   const prompt = `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks. Your itinerary should also include suggested accommodations for each different city you suggest.
+
+  Return the information in JSON format as an object with the following key value pairs and format.
+  Put each day in its own object similar to the example. Include the accommodation as an object that contains a suggested accommodation option in the form of a key-value pair. This should be noted as its own object in your response.
   
-    Return the information in JSON format as an object with the following key value pairs and format.
-    Put each day in it's own object similar to the example. include the accommodation as an object which contains a suggested accommodation option in the form of a key-value pair. This should be noted as it's own object in your response.
-    EXAMPLE:
+  EXAMPLE:
+  "itinerary": [
+    {Day1}, {Day2}
+  ],
+  "accommodation": {
+    "title": "Hotel Vancouver"
+  }
+
+
+  Each day should include the following:
+  'itinerary_text': HTML formatted text that is well-designed and spaced appropriately. It should include the entirety of the written itinerary you have developed. Make the title to have <h3> tag, and each suggestion explanation in an ordered list. Have each of your key locations and restaurants to be bold in the HTML.
+
+
+
+  'key_locations': an object that contains the title of key locations suggested in the itinerary. Select at least two key locations per day in the itinerary and share them in your response with me in the below example format.
+
+  EXAMPLE:
+  "key_locations": [
+    {
+      "title": "Capilano Suspension Bridge Park"
+    }, 
+    {
+      "title": "Granville Island Public Market"
+    }
+  ]
+
+  'restaurants': an array that contains the suggested restaurants in the itinerary per day. Select at least 2 restaurants per day in the itinerary and share them in your response with me in the below example format.
+
+  EXAMPLE:
+  "restaurants": [
+    {
+      "title": "some restaurants"
+    }, 
+    {
+      "title": "some restaurants"
+    }
+  ]
+
+
+  Final result should look like this:
+  {
     "itinerary": [
-      {Day1}, {Day2}
+      {
+        "itinerary_text",
+        "key_locations",
+        "restaurants"
+      }, 
+      {
+        "itinerary_text",
+        "key_locations",
+        "restaurants"
+      }
     ],
     "accommodation": {
       "title": "Hotel Vancouver"
     }
+  }
 
+  DO NOT repeat suggested activities or locations, and please make sure the itinerary text is not repetitive in nature.
 
-    Each day should include the following:
-    'itinerary_text': HTML formatted text that is well-designed and spaced appropriately. It should include the entirety of the written itinerary you have developed. make the title to have <h3> tag, and each suggestion explaination in an ordered list. Have each of your key locations and restauraunts to be bold in the HTML.
-    
-  
-  
-    'key_locations': an object which contains the title of key locations suggested in the itinerary. Select at least two key locations per day in the itinerary and share them in your response with me in the below example format.
-  
-    EXAMPLE:
-    "key_locations": [{
-      "title": "Capilano Suspension Bridge Park" 
-  }, 
-  'restaurants': an array which contains the suggested restaurants in the itinerary per day. Select at least 2 restaurants per day in the itinerary and share them in your response with me in the below example format.
-  
-  EXAMPLE:
-  "restaurants": [{
-    "title": "some restaurants" 
-  }, 
-  {
-    "title": "some restaurants" 
-  }]
-  
+  Your entire response should be in JSON format, nothing else.`;
 
-  Final result should look like this
-    {
-      "itinerary": [
-        {
-          'itinerary_text',
-          "key_locations"
-          "restaurants"
-        }, 
-        {
-          'itinerary_text',
-          "key_locations"
-          "restaurants"
-        }
-      ],
-      "accommodation": {
-        "title": "Hotel Vancouver"
-      }
-    }
-  
-    DO NOT repeat suggested activities or locations and please make sure the itinerary text is not repetitive in nature.
-  
-    Your entire response should be in JSON format, nothing else.`;
 
 // `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks. Your itinerary should also include suggested accommodations for each different city you suggest.
   

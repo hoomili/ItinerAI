@@ -1,0 +1,37 @@
+$color-primary: #374b73;
+$color-background: #fff1ed;
+$color-button-bg: #ff8197;
+$color-button-text: #fff1ed;
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // background-color: #FF8197;
+  background-color: #FFF1ED;
+  height: 110px;
+  border-top: 3px solid #FF8197;
+  color: #374B73;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 90px;
+}
+
+
+ul {
+  list-style: none;
+  display: flex;
+}
+
+li a {
+  text-decoration: none;
+  color: #374B73;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+li {
+  padding-left: 5px;
+  margin-right: 80px;
+}

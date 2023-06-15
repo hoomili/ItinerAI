@@ -13,11 +13,10 @@ const ItineraryListItem = (props) => {
   const [map, setMap] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
   const [day, setDay] = useState(0);
+  const [isOpen, setIsOpen] = useState(true);
 
   const { itineraryList, locationsPerDay, city, country } = props.aiData[0];
   const accommodation = props.aiData[0].stay;
-
-
 
   console.log("all locations", locationsPerDay);
 
@@ -89,10 +88,12 @@ const ItineraryListItem = (props) => {
     for (let i = 0; i < locationsPerDay.length; i++) {
       for (let j = 0; j < locationsPerDay[i].length; j++) {
         const element = locationsPerDay[i][j].geometry.location;
-        const newCoord = new window.google.maps.LatLng(element.lat, element.lng);
+        const newCoord = new window.google.maps.LatLng(
+          element.lat,
+          element.lng
+        );
         bounds.extend(newCoord);
       }
-
     }
     map.fitBounds(bounds);
     setMap(map);
@@ -102,12 +103,19 @@ const ItineraryListItem = (props) => {
     setMap(null);
   }, []);
 
-  if (!isLoaded) {
-    return <div>loading...</div>;
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  if (!isLoaded || !isOpen) {
+    return null;
   }
 
   return (
     <div className="itineray-list--item">
+      <button className="close-button" onClick={handleClose}>
+        X
+      </button>
       <div className="itineray-list--item-header">
         <h1>
           Awesome Trip to {city}, {country}{" "}

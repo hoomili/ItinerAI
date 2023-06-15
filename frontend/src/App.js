@@ -5,6 +5,7 @@ import "./App.scss";
 import Login from "./components/Login";
 import RegisterNewUser from "./components/Register";
 import Navbar from "./components/TopNavigationBar";
+import Footer from "./components/Footer";
 import "./App.scss";
 import Homepage from "./components/Homepage";
 import ItineraryList from "./components/ItineraryList";
@@ -27,26 +28,23 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <div className="Content">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<RegisterNewUser />} />
-            <Route
-              path="/my-itineraries"
-              element={user && <ItineraryList userId={userId} />}
-            />
-            <Route
-              path="/itinerary/:id"
-              element={<ItineraryListItem aiData={aiData} />}
-            />
-            <Route
-              exact
-              path="/"
-              element={<Homepage setAiData={setAiData} />}
-            />
-          </Routes>
-          {aiData.length > 0 ? <ItineraryListItem aiData={aiData} /> : ""}
-        </div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterNewUser />} />
+          <Route path="/my-itineraries" element={user && <ItineraryList userId={userId} />} />
+          <Route path="/itinerary/:userId/:id" element={<ItineraryListItem aiData={aiData} />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <>
+                <Homepage setAiData={setAiData} />
+                {aiData.length > 0 && <ItineraryListItem aiData={aiData} />}
+              </>
+            }
+          />
+        </Routes>
+        <Footer />
       </div>
     </Router>
   );
