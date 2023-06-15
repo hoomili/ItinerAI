@@ -17,9 +17,9 @@ const ItinerarySaveButton = function ({ aiData }) {
   const [isSaved, setIsSaved] = useState(false); // 
 
 
-  const handleImageChange = (event) => {
-    setImageUrl(event.target.value);
-  };
+  // const handleImageChange = (event) => {
+  //   setImageUrl(event.target.value);
+  // };
 
   //post request for saving itinerary
   const handleSave = (event) => {
@@ -49,19 +49,19 @@ const ItinerarySaveButton = function ({ aiData }) {
     <div className="save-button">
       {isSaved ? (
         <>
-          <Checkmark size={40} color="#FFF1ED"/>
+          <Checkmark size={60} color="#282c34"/>
         </>
       ) : (
       <form onSubmit={handleSave}>
         <label>
-          Like this itinerary? Upload a cover photo and click the heart to save
+          Like this itinerary? Click the heart to save
           it:
-          <input
+          {/* <input
             type="text"
             placeholder="Enter image URL"
             value={imageUrl}
             onChange={handleImageChange}
-          />
+          /> */}
         </label>
         <button type="submit">
           <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
