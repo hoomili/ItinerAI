@@ -5,7 +5,7 @@ VALUES
 
 INSERT INTO ITINERARIES (user_id, accommodations, response_prompt, city, country, image_url)
 VALUES
-(1,'3-star hotel', 'Your itinerary for Paris...', 'Paris', 'France', 'https://images.unsplash.com/photo-1559511260-66a654ae982a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dmFuY291dmVyfGVufDB8fDB8fHww&w=1000&q=80');
+(1,'3-star hotel', 'Your itinerary for Paris...', 'Paris', 'France', 'https://www.travelandleisure.com/thmb/SPUPzO88ZXq6P4Sm4mC5Xuinoik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/eiffel-tower-paris-france-EIFFEL0217-6ccc3553e98946f18c893018d5b42bde.jpg');
 
 
 INSERT INTO POINTS (itinerary_id, title, latitude, longitude, description, image_url, rating)

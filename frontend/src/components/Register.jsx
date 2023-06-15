@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/Register.scss";
@@ -12,6 +13,7 @@ const RegisterNewUser = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +33,12 @@ const RegisterNewUser = () => {
       });
 
       setRegistrationSuccess(true);
-      navigate('/login');
+      
+      const loginResponse = await login(email, password);
+
+      if (loginResponse.status === 200) {
+        navigate('/');
+      }
 
     setFirstName('');
     setLastName('');
