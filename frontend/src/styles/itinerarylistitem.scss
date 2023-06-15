@@ -1,15 +1,66 @@
 .itineray-list--item {
+  // position: fixed;
+  // top: 90%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  /* z-index: 9999; */
   display: flex;
+  background-color: rgba(255, 241, 237, 0.95);
+  border-radius: 20px;
+  margin: 0 auto; 
+  margin-bottom: 50px;
+  max-width: 95vw;
+  max-height: 90vh;
+  padding: 20px;
+  width: 90vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .itineray-list--item-map {
-  height: 90vh;
+  height: 85vh;
   width: 100%;
   min-width: 300px;
   margin: 2rem;
+  border-radius: 1rem;
 }
 
-.itineray-list--item-description {
+.itineray-list--item-header {
   margin: 2rem;
-  flex-shrink: 1.5;
+  div {
+    text-align: left;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+.itineray-list--item-description {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #FF8197;
+}
+
+.itineray-list--item-map-infoWindow {
+  display: flex;
+  img {
+    border-radius: 1rem;
+    margin-left: 0.5rem;
+  }
+  section {
+    text-align: left;
+  }
+}
+.gm-style-iw { width: 350px !important; }
+
+.btn-primary {
+  color: #fff1ed;
+  background-color: #FF8197;
+  border-color: #FF8197;
+}
+.btn-primary:hover {
+  background-color: #374B73 ;
+  border-color: #374B73;
+}
+.accommodation {
+  margin-top: 2rem;
+  border-top: 2px solid #FF8197;
+  padding-top: 1rem;
 }
