@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
-import { authContext } from "./providers/AuthProvider";
+import { AuthContext } from "./providers/AuthProvider";
 import "./App.scss";
 import Login from "./components/Login";
 import RegisterNewUser from "./components/Register";
@@ -14,20 +14,11 @@ import { pointsContext } from "./components/context";
 function App() {
   const [aiData, setAiData] = useState([]);
 
-  const { isLoggedIn, user } = useContext(authContext);
-  // const [showLoginForm, setShowLoginForm] = useState(false);
+  const { isLoggedIn, user } = useContext(AuthContext);
   const [userId, setUserId] = useState(null);
 
-  // const handleLoginLinkClick = () => {
-  //   setShowLoginForm(true);
-  // };
-
-  // const handleLoginFormClose = () => {
-  //   setShowLoginForm(false);
-  // };
 
   useEffect(() => {
-    // console.log('APP USER ID:', user?.id);
     if (user) {
       setUserId(user.id);
     }

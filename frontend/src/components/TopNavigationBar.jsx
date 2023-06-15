@@ -1,40 +1,40 @@
 import { useContext } from "react";
-import { authContext } from "../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
 import logoSample from "../images/logoSample.jpg";
 import "../styles/TopNavigationBar.scss";
 
-const Navbar = ({ onLoginLinkClick }) => {
-  const { isLoggedIn, user, logout } = useContext(authContext);
+const Navbar = () => {
+  const { isLoggedIn, user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await logout();
-      // window.location.href = "/"
+      navigate('/');
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
- 
 
   return (
     <nav>
       <div className="top-nav-bar">
         <div className="logo">
-          <img src={logoSample} />
+          <Link to="/">
+            <img src={logoSample} />
+          </Link>
         </div>
         <ul>
           <li className="nav-item">
-            <Link to="/">
-              Create Itinerary
-            </Link>
+            <Link to="/">Create Itinerary</Link>
           </li>
           {isLoggedIn && user && (
             <>
               <li className="nav-item">
                 <Link to="/my-itineraries">My Itineraries</Link>
               </li>
-              <li className="nav-welcome">Welcome, {user.email}</li>
+              <li className="nav-welcome">Welcome, {user.first_name}</li>
               <li className="nav-item">
                 <button className="nav-button" onClick={handleLogout}>
                   Logout
@@ -45,14 +45,10 @@ const Navbar = ({ onLoginLinkClick }) => {
           {!isLoggedIn && (
             <>
               <li className="nav-item">
-                <Link to="/login">
-                  Login
-                </Link>
+                <Link to="/login">Login</Link>
               </li>
               <li className="nav-item">
-                <Link to="/register">
-                  Register
-                </Link>
+                <Link to="/register">Sign Up</Link>
               </li>
             </>
           )}

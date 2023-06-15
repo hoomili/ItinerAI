@@ -2,7 +2,6 @@ const express = require('express');
 const cookieSession = require('cookie-session');
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
-
 const router = express.Router();
 const connectionString = `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
 
@@ -13,7 +12,8 @@ const pool = new Pool({
 router.use(
   cookieSession({
     name: 'session',
-    keys: [process.env.COOKIE_SECRET]
+    keys: [process.env.COOKIE_SECRET],
+    sameSite: 'strict'
   })
 );
 
@@ -36,9 +36,9 @@ router.post('/login', async (req, res) => {
           return res.status(500).json({ message: 'Internal server error' });
         }
         if (isMatch) {
-          const { email, id } = user;
-          req.session.user = { email, id };
-          return res.status(200).json({ message: 'Login successful', email, id });
+          const { email, id, first_name } = user;
+          req.session.user = { email, id, first_name };
+          return res.status(200).json({ message: 'Login successful', email, id, first_name });
         } else {
           return res.status(401).json({ message: 'Invalid email or password' });
         }

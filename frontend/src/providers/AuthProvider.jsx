@@ -1,9 +1,9 @@
 import { createContext, useState } from 'react';
 import axios from 'axios';
 
-export const authContext = createContext();
+export const AuthContext = createContext();
 
-const AuthProvider = (props) => {
+const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
@@ -12,13 +12,12 @@ const AuthProvider = (props) => {
       const response = await axios.post('http://localhost:8080/login', {
         email,
         password
-      });
+      }, { withCredentials: true });
 
       if (response.status === 200) {
         setIsLoggedIn(true);
         const userData = response.data
-        console.log('USER DATA:', userData);
-        setUser({ id: userData.id, email: userData.email });
+        setUser({ id: userData.id, email: userData.email, first_name: userData.first_name });
       }
       return response;
     } catch (error) {
@@ -29,7 +28,7 @@ const AuthProvider = (props) => {
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:8080/logout');
+      await axios.post('http://localhost:8080/logout', null, { withCredentials: true });
       setIsLoggedIn(false);
       setUser(null);
 
@@ -42,9 +41,9 @@ const AuthProvider = (props) => {
   const userData = { isLoggedIn, user, login, logout };
 
   return (
-    <authContext.Provider value={ userData }>
-      {props.children}
-    </authContext.Provider>
+    <AuthContext.Provider value={ userData }>
+      { children }
+    </AuthContext.Provider>
   );
 };
 
