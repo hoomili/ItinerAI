@@ -14,6 +14,7 @@ const ItinerarySaveButton = function ({ aiData }) {
   const city = aiData[0].city;
   const country = aiData[0].country;
   const points = aiData[0].keyLocations;
+  
   const [isSaved, setIsSaved] = useState(false); // 
 
 
@@ -25,7 +26,7 @@ const ItinerarySaveButton = function ({ aiData }) {
   const handleSave = (event) => {
     console.log("trying to make your post...");
     event.preventDefault();
-
+    setImageUrl(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${aiData[0].savePhoto.photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`);
     axios
       .post("http://localhost:8080/itineraries", {
         user_id: user_id,

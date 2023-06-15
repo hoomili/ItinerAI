@@ -158,6 +158,12 @@ router.post("/completions", async (req, res) => {
     }
     // console.log('locations for days', locationsPerDay)
 
+    //get the photo for saving the itinerary
+    const savePhoto = await axios({
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${city}%20${country}&inputtype=textquery&fields=photos&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`,
+      headers: {}
+    })
     
 
     const responseData = {
@@ -167,6 +173,7 @@ router.post("/completions", async (req, res) => {
       locationsPerDay,
       stay,
       itineraryList,
+      savePhoto,
     };
 
     res.json(responseData);
