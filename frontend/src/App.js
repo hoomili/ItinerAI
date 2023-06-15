@@ -5,6 +5,7 @@ import "./App.scss";
 import Login from "./components/Login";
 import RegisterNewUser from "./components/Register";
 import Navbar from "./components/TopNavigationBar";
+import Footer from "./components/Footer";
 import "./App.scss";
 import Homepage from "./components/Homepage";
 import ItineraryList from "./components/ItineraryList";
@@ -43,6 +44,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
