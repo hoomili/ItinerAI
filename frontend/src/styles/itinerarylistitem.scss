@@ -14,6 +14,7 @@
   padding: 20px;
   width: 90vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
 }
 
 .itineray-list--item-map {
@@ -26,6 +27,7 @@
 
 .itineray-list--item-header {
   margin: 2rem;
+  overflow-y: scroll;
   div {
     text-align: left;
     max-height: 90vh;
