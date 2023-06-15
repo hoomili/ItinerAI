@@ -5,24 +5,19 @@ import {
   MarkerF,
   InfoWindowF,
 } from "@react-google-maps/api";
-import axios from "axios";
 import { ItinerarySaveButton } from "./itinerarySaveButton";
 
 import "../styles/itinerarylistitem.scss";
 
 const ItineraryListItem = (props) => {
   const [map, setMap] = useState(null);
-  const itinerary = props.aiData[0].itineraryText;
-  const points = props.aiData[0].locations;
-  const breakfast = props.aiData[0].breakfast;
-  const lunch = props.aiData[0].lunch;
-  const dinner = props.aiData[0].dinner;
-  const accommodation = props.aiData[0].stay;
-  const city = props.aiData[0].city;
-  const country = props.aiData[0].country;
   const [activeMarker, setActiveMarker] = useState(null);
-  const mapBoundry = points.concat(breakfast, lunch, dinner);
+  const [day, setDay] = useState(0);
 
+  const { itineraryList, locationsPerDay, city, country } = props.aiData[0];
+  const accommodation = props.aiData[0].stay;
+
+  console.log("all locations", locationsPerDay);
 
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {
@@ -36,9 +31,9 @@ const ItineraryListItem = (props) => {
     googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY,
   });
 
-  // setting up the points for the map
+  // setting up the locationsPerDay for the map
 
-  const activities = mapBoundry.map((position, index) => {
+  const activities = locationsPerDay[day].map((position, index) => {
     return (
       <MarkerF
         key={index}
@@ -66,14 +61,31 @@ const ItineraryListItem = (props) => {
       </MarkerF>
     );
   });
+  console.log(itineraryList);
+  const itinerary = itineraryList.map((item, index) => {
+    return (
+      <div className="itineray-list--item-description">
+        <section dangerouslySetInnerHTML={{ __html: item }} />
+        <div class="d-grid gap-2">
+          <button
+            class="btn btn-primary"
+            type="button"
+            onClick={() => setDay(index)}
+          >
+            Show locations of the day on the map
+          </button>
+        </div>
+      </div>
+    );
+  });
 
   // set boundry for the map
   const onLoad = useCallback((map) => {
     const bounds = new window.google.maps.LatLngBounds(
       accommodation.geometry.location
     );
-    for (let i = 0; i < mapBoundry.length; i++) {
-      const element = mapBoundry[i].geometry.location;
+    for (let i = 0; i < locationsPerDay[day].length; i++) {
+      const element = locationsPerDay[day][i].geometry.location;
 
       const newCoord = new window.google.maps.LatLng(element.lat, element.lng);
       bounds.extend(newCoord);
@@ -92,13 +104,20 @@ const ItineraryListItem = (props) => {
 
   return (
     <div className="itineray-list--item">
-      <div className="itineray-list--item-description">
+      <div className="itineray-list--item-header">
         <h1>
           Awesome Trip to {city}, {country}{" "}
         </h1>
-        <div dangerouslySetInnerHTML={{ __html: itinerary }} />
+        <div className="accommodation">
+          <h4>Accommodation: </h4>
+          <h3>{accommodation.name}</h3>
+          <p>
+            <strong>Address:</strong> {accommodation.formatted_address} <br />
+            <strong>Rating:</strong> {accommodation.rating}/5 ⭐
+          </p>
+        </div>
+        {itinerary}
         <ItinerarySaveButton aiData={props.aiData} />
-
       </div>
       <GoogleMap
         zoom={18}

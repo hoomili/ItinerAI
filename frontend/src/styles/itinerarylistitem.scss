@@ -3,19 +3,23 @@
 }
 
 .itineray-list--item-map {
-  height: 90vh;
+  height: 100vh;
   width: 100%;
   min-width: 300px;
   margin: 2rem;
   border-radius: 1rem;
 }
 
-.itineray-list--item-description {
+.itineray-list--item-header {
   margin: 2rem;
-  flex-shrink: 1.5;
   div {
     text-align: left;
   }
+}
+.itineray-list--item-description {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #FF8197;
 }
 
 .itineray-list--item-map-infoWindow {
@@ -24,8 +28,23 @@
     border-radius: 1rem;
     margin-left: 0.5rem;
   }
-  div {
+  section {
     text-align: left;
   }
 }
 .gm-style-iw { width: 350px !important; }
+
+.btn-primary {
+  color: #fff1ed;
+  background-color: #FF8197;
+  border-color: #FF8197;
+}
+.btn-primary:hover {
+  background-color: #374B73 ;
+  border-color: #374B73;
+}
+.accommodation {
+  margin-top: 2rem;
+  border-top: 2px solid #FF8197;
+  padding-top: 1rem;
+}
