@@ -17,6 +17,8 @@ const ItineraryListItem = (props) => {
   const { itineraryList, locationsPerDay, city, country } = props.aiData[0];
   const accommodation = props.aiData[0].stay;
 
+
+
   console.log("all locations", locationsPerDay);
 
   const handleActiveMarker = (marker) => {
@@ -61,7 +63,7 @@ const ItineraryListItem = (props) => {
       </MarkerF>
     );
   });
-  console.log(itineraryList);
+
   const itinerary = itineraryList.map((item, index) => {
     return (
       <div className="itineray-list--item-description">
@@ -84,11 +86,13 @@ const ItineraryListItem = (props) => {
     const bounds = new window.google.maps.LatLngBounds(
       accommodation.geometry.location
     );
-    for (let i = 0; i < locationsPerDay[day].length; i++) {
-      const element = locationsPerDay[day][i].geometry.location;
+    for (let i = 0; i < locationsPerDay.length; i++) {
+      for (let j = 0; j < locationsPerDay[i].length; j++) {
+        const element = locationsPerDay[i][j].geometry.location;
+        const newCoord = new window.google.maps.LatLng(element.lat, element.lng);
+        bounds.extend(newCoord);
+      }
 
-      const newCoord = new window.google.maps.LatLng(element.lat, element.lng);
-      bounds.extend(newCoord);
     }
     map.fitBounds(bounds);
     setMap(map);
