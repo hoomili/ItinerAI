@@ -7,9 +7,25 @@
   width: 100%;
   min-width: 300px;
   margin: 2rem;
+  border-radius: 1rem;
 }
 
 .itineray-list--item-description {
   margin: 2rem;
   flex-shrink: 1.5;
+  div {
+    text-align: left;
+  }
 }
+
+.itineray-list--item-map-infoWindow {
+  display: flex;
+  img {
+    border-radius: 1rem;
+    margin-left: 0.5rem;
+  }
+  div {
+    text-align: left;
+  }
+}
+.gm-style-iw { width: 350px !important; }
