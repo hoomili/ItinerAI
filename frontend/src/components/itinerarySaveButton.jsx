@@ -6,9 +6,10 @@ import "../styles/saveButton.scss";
 import { Checkmark } from "react-checkmark";
 
 
-const ItinerarySaveButton = function ({ aiData }) {
+const ItinerarySaveButton = function ({ aiData, userId }) {
   console.log("aiData", aiData);
-  const user_id = 1;
+  console.log("userID", userId);
+  const user_id = userId;
   const accommodations = aiData.accommodation.title;
   const response_prompt = JSON.stringify(aiData)
   const city = aiData.city;

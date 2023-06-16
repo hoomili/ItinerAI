@@ -98,7 +98,7 @@ const ItineraryList = ({ userId }) => {
         </ul>
       )}
       {selectedItinerary && (
-        <ItineraryListItem aiData={selectedItinerary.aiData} />
+        <ItineraryListItem aiData={selectedItinerary.aiData} userId={userId} setSelectedItinerary={setSelectedItinerary}/>
       )}
     </div>
   );

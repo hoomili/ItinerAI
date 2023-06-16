@@ -14,6 +14,7 @@ const ItineraryListItem = (props) => {
   const [activeMarker, setActiveMarker] = useState(null);
   const [day, setDay] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
+  console.log("userID2", props.userId);
 
   const { itineraryList, locationsPerDay, city, country } = props.aiData;
   const accommodation = props.aiData.stay;
@@ -98,7 +99,7 @@ const ItineraryListItem = (props) => {
     }
     map.fitBounds(bounds);
     setMap(map);
-  }, []);
+  }, [props.aiData]);
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
@@ -106,6 +107,7 @@ const ItineraryListItem = (props) => {
 
   const handleClose = () => {
     setIsOpen(false);
+    props.setSelectedItinerary(null)
   };
 
   if (!isLoaded || !isOpen) {
@@ -130,7 +132,7 @@ const ItineraryListItem = (props) => {
           </p>
         </div>
         {itinerary}
-        <ItinerarySaveButton aiData={props.aiData} />
+        <ItinerarySaveButton aiData={props.aiData} userId={props.userId}/>
       </div>
       <GoogleMap
         zoom={18}
