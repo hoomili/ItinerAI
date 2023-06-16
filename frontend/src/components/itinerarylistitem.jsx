@@ -15,10 +15,10 @@ const ItineraryListItem = (props) => {
   const [day, setDay] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
 
-  const { itineraryList, locationsPerDay, city, country } = props.aiData[0];
-  const accommodation = props.aiData[0].stay;
+  const { itineraryList, locationsPerDay, city, country } = props.aiData;
+  const accommodation = props.aiData.stay;
 
-  console.log("all locations", props.aiData[0].savePhoto.photos[0].photo_reference);  
+  console.log("all locations", props.aiData.savePhoto.photos[0].photo_reference);  
 
 
   const handleActiveMarker = (marker) => {

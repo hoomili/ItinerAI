@@ -10,6 +10,7 @@ const ItineraryList = ({ userId }) => {
   const [loading, setLoading] = useState(true);
   const [selectedItinerary, setSelectedItinerary] = useState(null);
 
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -21,8 +22,12 @@ const ItineraryList = ({ userId }) => {
       .catch((error) => console.log(error));
   }, [userId]);
 
-  const selectItinerary = (itinerary) => {
-    setSelectedItinerary(itinerary);
+  const handleItineraryClick = (itineraryId) => {
+    const selected = itineraries.find(
+      (itinerary) => itinerary.id === itineraryId
+    );
+    const aiData = JSON.parse(selected.response_prompt);
+    setSelectedItinerary({ ...selected, aiData });
   };
 
   if (loading) {
@@ -55,17 +60,12 @@ const ItineraryList = ({ userId }) => {
           {itineraries.map((itinerary) => (
             <div className="itinerary-item--container" key={itinerary.id}>
               <div className="itinerary-item">
-                <li>
-                  <Link
-                    to={`/itinerary/${userId}/${itinerary.id}`}
-                    onClick={() => selectItinerary(itinerary)}
-                  >
-                    <img
-                      className="itinerary-item--photo"
-                      src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=1080&photo_reference=${itinerary.image_url}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
-                      alt={itinerary.name}
-                    />
-                  </Link>
+                <li onClick={() => handleItineraryClick(itinerary.id)}>
+                  <img
+                    className="itinerary-item--photo"
+                    src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=1080&photo_reference=${itinerary.image_url}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`}
+                    alt={itinerary.name}
+                  />
                   <div className="itinerary-item--location">
                     <h3>
                       {itinerary.city}, {itinerary.country}
