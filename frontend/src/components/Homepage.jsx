@@ -34,7 +34,8 @@ function Homepage(props) {
       })
       .then((response) => {
         console.log("API response:", response);
-        props.setAiData([response.data]);
+        console.log("API response data:", response.data);
+        props.setAiData(response.data);
         setIsGenerating(false);
         setIsCompleted(true);
       })
