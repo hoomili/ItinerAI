@@ -16,7 +16,7 @@ function App() {
 
   const { isLoggedIn, user } = useContext(AuthContext);
   const [userId, setUserId] = useState(null);
-
+  console.log('user', user);
   useEffect(() => {
     if (user) {
       setUserId(user.id);
@@ -31,14 +31,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterNewUser />} />
           <Route path="/my-itineraries" element={user && <ItineraryList userId={userId} />} />
-          <Route path="/itinerary/:userId/:id" element={<ItineraryListItem aiData={aiData} />} />
+          <Route path="/itinerary/:userId/:id" element={<ItineraryListItem aiData={aiData} userId={userId}/>} />
           <Route
             exact
             path="/"
             element={
               <>
                 <Homepage setAiData={setAiData} />
-                {aiData && <ItineraryListItem aiData={aiData} />}
+                {aiData && <ItineraryListItem aiData={aiData} userId={userId}/>}
               </>
             }
           />
