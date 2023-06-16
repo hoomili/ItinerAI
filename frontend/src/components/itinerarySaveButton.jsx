@@ -9,11 +9,11 @@ import { Checkmark } from "react-checkmark";
 const ItinerarySaveButton = function ({ aiData }) {
   console.log("aiData", aiData);
   const user_id = 1;
-  const accommodations = aiData[0].accommodation.title;
-  const response_prompt = aiData[0].itineraryText;
-  const city = aiData[0].city;
-  const country = aiData[0].country;
-  const locationsPerDay = aiData[0].locationsPerDay; 
+  const accommodations = aiData.accommodation.title;
+  const response_prompt = JSON.stringify(aiData)
+  const city = aiData.city;
+  const country = aiData.country;
+  const locationsPerDay = aiData.locationsPerDay; 
   const [isSaved, setIsSaved] = useState(false); 
 
   const points = locationsPerDay.flatMap((dayLocations) =>
@@ -31,7 +31,7 @@ const ItinerarySaveButton = function ({ aiData }) {
     console.log("trying to make your post...");
     event.preventDefault();
 
-    const imageUrl = aiData[0].savePhoto.photos[0].photo_reference;
+    const imageUrl = aiData.savePhoto.photos[0].photo_reference;
     
 
     axios
