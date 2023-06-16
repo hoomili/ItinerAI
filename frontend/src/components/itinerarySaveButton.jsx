@@ -32,7 +32,8 @@ const ItinerarySaveButton = function ({ aiData }) {
     event.preventDefault();
 
     const firstImage = aiData[0].savePhoto.photo_reference;
-    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${firstImage}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`;
+    
+    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=300&photo_reference=${firstImage}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`;
 
     axios
       .post("http://localhost:8080/itineraries", {
