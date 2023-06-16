@@ -29,19 +29,19 @@ ul {
   display: flex;
 }
 
-li a {
+.nav-item {
   text-decoration: none;
   // color: #FFF1ED;
   color: #374B73;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   // font-weight: bold;
-}
-
-li {
   padding-left: 5px;
+  padding-top: 15px;
   margin-right: 80px;
 }
+
+
 
 .nav-button {
   background: none;
@@ -57,13 +57,18 @@ li {
   border: none;
   color: #374B73;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  // font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.nav-welcome {
-  color: #374B73;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  // font-weight: bold;
+.nav-profile--pic {
+  display: flex;
+  overflow: hidden;
+}
+
+#profile-pic {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
 }

@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         setIsLoggedIn(true);
         const userData = response.data
-        setUser({ id: userData.id, email: userData.email, first_name: userData.first_name });
+        setUser({ id: userData.id, email: userData.email, profile_pic: userData.profile_pic });
       }
       return response;
     } catch (error) {

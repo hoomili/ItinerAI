@@ -8,27 +8,30 @@ const RegisterNewUser = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [profilePic, setProfilePic] = useState('');
   const [password, setPassword] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
+  const defaultProfilePic = 'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg'
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    if (!firstName || !lastName || !username || !email || !password) {
-      setError('All fields are required');
+    if (!firstName || !lastName || !email || !password) {
+      setError('Required field missing');
       return;
     }
 
     try {
+      const profilePicUrl = profilePic || defaultProfilePic;
       const response = await axios.post('http://localhost:8080/register', {
         firstName,
         lastName,
         email,
-        username,
+        profilePic: profilePicUrl,
         password
       });
 
@@ -43,7 +46,7 @@ const RegisterNewUser = () => {
     setFirstName('');
     setLastName('');
     setEmail('');
-    setUsername('');
+    setProfilePic('');
     setPassword('');
     setError('');
     } catch (error) {
@@ -85,10 +88,10 @@ const RegisterNewUser = () => {
         <p>
         <input className='register-input'
           type='text' 
-          name='username'
-            value={username} 
-            placeholder='Enter a username here'
-            onChange={event => setUsername(event.target.value)} />
+          name='profile-pic'
+            value={profilePic} 
+            placeholder='Add a profile picture here'
+            onChange={event => setProfilePic(event.target.value)} />
         </p>
         <p>
         <input className='register-input'
