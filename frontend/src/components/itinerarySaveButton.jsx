@@ -31,9 +31,9 @@ const ItinerarySaveButton = function ({ aiData }) {
     console.log("trying to make your post...");
     event.preventDefault();
 
-    const firstImage = aiData[0].locationsPerDay[0][0].photos[0];
-    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${firstImage.photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`;
-    setImageUrl(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${aiData[0].savePhoto.photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`);
+    const firstImage = aiData[0].savePhoto.photo_reference;
+    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${firstImage}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`;
+
     axios
       .post("http://localhost:8080/itineraries", {
         user_id: user_id,
