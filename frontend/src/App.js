@@ -10,7 +10,6 @@ import "./App.scss";
 import Homepage from "./components/Homepage";
 import ItineraryList from "./components/ItineraryList";
 import ItineraryListItem from "./components/itinerarylistitem";
-import { pointsContext } from "./components/context";
 
 function App() {
   const [aiData, setAiData] = useState([]);
