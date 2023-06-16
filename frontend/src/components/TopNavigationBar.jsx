@@ -6,12 +6,16 @@ import "../styles/TopNavigationBar.scss";
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useContext(AuthContext);
+
+  console.log("##1 USER:", user);
+  
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error("Logout failed", error);
     }
@@ -34,11 +38,10 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link to="/my-itineraries">My Itineraries</Link>
               </li>
-              <li className="nav-welcome">Hey, {user.first_name}!</li>
-              <li className="nav-item">
-                <button className="nav-button--logout" onClick={handleLogout}>
-                  Logout
-                </button>
+              <li className="nav-profile--pic">
+              <Link to="/" onClick={handleLogout}>
+                  <img id="profile-pic" src={user.profile_pic} alt="Profile Pic" />
+                </Link>
               </li>
             </>
           )}

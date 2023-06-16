@@ -12,7 +12,7 @@ import ItineraryList from "./components/ItineraryList";
 import ItineraryListItem from "./components/itinerarylistitem";
 
 function App() {
-  const [aiData, setAiData] = useState([]);
+  const [aiData, setAiData] = useState(null);
 
   const { isLoggedIn, user } = useContext(AuthContext);
   const [userId, setUserId] = useState(null);
@@ -38,7 +38,7 @@ function App() {
             element={
               <>
                 <Homepage setAiData={setAiData} />
-                {aiData.length > 0 && <ItineraryListItem aiData={aiData} />}
+                {aiData && <ItineraryListItem aiData={aiData} />}
               </>
             }
           />

@@ -28,6 +28,7 @@ router.post('/login', async (req, res) => {
 
     if (result.rows.length > 0) {
       const user = result.rows[0];
+      console.log('##3 USER FROM AUTH ROUTE:', user);
       const hashedPassword = user.password;
 
       bcrypt.compare(password, hashedPassword, (err, isMatch) => {
@@ -36,9 +37,11 @@ router.post('/login', async (req, res) => {
           return res.status(500).json({ message: 'Internal server error' });
         }
         if (isMatch) {
-          const { email, id, first_name } = user;
-          req.session.user = { email, id, first_name };
-          return res.status(200).json({ message: 'Login successful', email, id, first_name });
+          const { email, id, profile_pic } = user;
+          console.log('User properties:', email, id, profile_pic);
+          req.session.user = { email, id, profile_pic };
+          console.log('User object in session:', req.session.user);
+          return res.status(200).json({ message: 'Login successful', email, id, profile_pic });
         } else {
           return res.status(401).json({ message: 'Invalid email or password' });
         }

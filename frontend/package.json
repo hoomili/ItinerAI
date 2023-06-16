@@ -9,6 +9,7 @@
     "react": "^18.2.0",
     "react-checkmark": "^1.4.0",
     "react-dom": "^18.2.0",
+    "react-google-autocomplete": "^2.7.3",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
@@ -44,6 +45,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "openai": "^3.2.1",
+    "react-google-autocomplete": "^2.7.3",
     "sass": "^1.63.3"
   }
 }

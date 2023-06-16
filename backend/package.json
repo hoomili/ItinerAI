@@ -24,6 +24,7 @@
     "bcrypt": "^5.1.0",
     "cookie-session": "^2.0.0",
     "openai": "^3.2.1",
+    "react-google-autocomplete": "^2.7.3",
     "sass": "^1.63.3"
   }
 }

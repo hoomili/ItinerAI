@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Homepage.scss";
 import { ColorRing } from "react-loader-spinner";
-import Autocomplete from "react-google-autocomplete";
+import Autocomplete from 'react-google-autocomplete';
 
 function Homepage(props) {
   const [city, setCity] = useState("");
@@ -35,7 +35,8 @@ function Homepage(props) {
       })
       .then((response) => {
         console.log("API response:", response);
-        props.setAiData([response.data]);
+        console.log("API response data:", response.data);
+        props.setAiData(response.data);
         setIsGenerating(false);
         setIsCompleted(true);
       })
