@@ -175,7 +175,7 @@ router.post("/completions", async (req, res) => {
       headers: {}
     })
     
-
+    console.log(savePhoto);
     const responseData = {
       accommodation,
       city,
@@ -183,7 +183,7 @@ router.post("/completions", async (req, res) => {
       locationsPerDay,
       stay,
       itineraryList,
-      savePhoto,
+      savePhoto: savePhoto.data.candidates[0],
     };
 
     res.json(responseData);
