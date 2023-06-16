@@ -5,6 +5,7 @@ import axios from "axios";
 import "../styles/saveButton.scss";
 import { Checkmark } from "react-checkmark";
 
+
 const ItinerarySaveButton = function ({ aiData }) {
   console.log("aiData", aiData);
   const user_id = 1;
@@ -14,7 +15,6 @@ const ItinerarySaveButton = function ({ aiData }) {
   const country = aiData[0].country;
   const locationsPerDay = aiData[0].locationsPerDay; 
   const [isSaved, setIsSaved] = useState(false); 
-
 
   const points = locationsPerDay.flatMap((dayLocations) =>
   dayLocations.map((location) => ({
@@ -31,9 +31,8 @@ const ItinerarySaveButton = function ({ aiData }) {
     console.log("trying to make your post...");
     event.preventDefault();
 
-    const firstImage = aiData[0].savePhoto.photo_reference;
+    const imageUrl = aiData[0].savePhoto.photos[0].photo_reference;
     
-    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxheight=300&photo_reference=${firstImage}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`;
 
     axios
       .post("http://localhost:8080/itineraries", {
