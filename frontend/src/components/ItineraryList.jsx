@@ -4,6 +4,7 @@ import ItineraryListItem from "./itinerarylistitem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/ItineraryList.scss";
+import { ColorRing } from "react-loader-spinner";
 
 const ItineraryList = ({ userId }) => {
   const [itineraries, setItineraries] = useState([]);
