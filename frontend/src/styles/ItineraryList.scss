@@ -3,29 +3,41 @@ $color-background: #fff1ed;
 $color-button-bg: #ff8197;
 $color-button-text: #fff1ed;
 
+
+.itinerary-master-container{
+  background-color: rgba(255, 241, 237, 0.95);
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  max-width: 95vw;
+  padding: 20px;
+  width: 90vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
+}
+
 .itinerary-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-start;
-  background-color: #fff1ed;
   color: #374b73;
+  margin-bottom: 0;
 }
 
 .itinerary-header {
-  background-color: #fff1ed;
   width: 100%;
   text-align: left;
   font-size: 45px;
   color: #374b73;
-  margin-top: 20px;
+  margin-top: 0px;
   margin-bottom: 0;
   padding-top: 15px;
   padding-left: 20px;
 }
 
 .itinerary-empty {
-  background-color: #fff1ed;
+  background-color: rgba(255, 241, 237, 0.95);
   color: #374b73;
   padding-top: 80px;
   padding-bottom: 170px;
@@ -51,9 +63,10 @@ $color-button-text: #fff1ed;
 .itinerary-item--photo {
   margin-top: 30px;
   border-radius: 8px;
-  width: 100%;
+  width: 450px;
   height: 300px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .itinerary-item--location {
@@ -87,4 +100,21 @@ $color-button-text: #fff1ed;
   padding-bottom: 15px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.itinerary-item--photo-container {
+  position: relative;
+}
+
+
+.delete-button{
+  max-height: 25px;
+  background-color: #ff8197;
+  color: #fff1ed;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  top: 43px;
+  position: absolute;
+  right: 15px;
 }
