@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Homepage.scss";
 import { ColorRing } from "react-loader-spinner";
+import Autocomplete from "react-google-autocomplete";
 
 function Homepage(props) {
   const [city, setCity] = useState("");
@@ -82,25 +83,21 @@ function Homepage(props) {
         <>
           <h1 className="homepage-title">Tell us about your upcoming trip!</h1>
           <form onSubmit={handleSubmit} className="homepage-form">
+
             <label className="homepage-label">
-              City:
-              <input
-                type="text"
-                name="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="homepage-input"
-              />
-            </label>
-            <label className="homepage-label">
-              Country:
-              <input
-                type="text"
-                name="country"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                className="homepage-input"
-              />
+              Destination:
+              <Autocomplete 
+              apiKey={process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}
+              placeholder=""
+              className="homepage-input"
+              onPlaceSelected={(place) => {
+                setCity(place.address_components[0].long_name);
+                setCountry(place.address_components[3].long_name)
+              }}
+              options={{
+                types: ["(cities)"],
+              }}
+            />
             </label>
             <label className="homepage-label">
               Number of days:
