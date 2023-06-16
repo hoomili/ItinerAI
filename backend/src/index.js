@@ -12,6 +12,7 @@ const registerRouter = require('./routes/registerRoute');
 const itinerariesRouter = require('./routes/itinerariesRoute');
 const apiRoutes = require('./routes/api')
 const saveRoute = require('./routes/saved')
+const deleteRoute = require('./routes/delete')
 const morgan = require('morgan');
 // const { Client } = require('pg');
 const { Pool } = require('pg');
@@ -63,6 +64,7 @@ app.use(authRoutes);
 app.use('/register', registerRouter);
 app.use('/itineraries', itinerariesRouter)
 app.use('/itineraries', saveRoute(db));
+app.use('/itineraries', deleteRoute(db));
 
 // Start the server
 const PORT = process.env.PORT || 8080;
