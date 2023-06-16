@@ -18,7 +18,8 @@ const ItineraryListItem = (props) => {
   const { itineraryList, locationsPerDay, city, country } = props.aiData[0];
   const accommodation = props.aiData[0].stay;
 
-  console.log("all locations", locationsPerDay);
+  console.log("all locations", props.aiData[0].savePhoto.photos[0].photo_reference);  
+
 
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {

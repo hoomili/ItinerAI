@@ -43,7 +43,7 @@ const ItineraryList = ({ userId }) => {
               <div className="itinerary-item">
                 <li>
                   <Link to={`/itinerary/${userId}/${itinerary.id}`} onClick={() => selectItinerary(itinerary)}>
-                    <img className="itinerary-item--photo" src={itinerary.image_url} alt={itinerary.name} />
+                    <img className="itinerary-item--photo" src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=1080&photo_reference=${itinerary.image_url}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`} alt={itinerary.name} />
                   </Link>
                   <div className="itinerary-item--location">
                     <h3>
