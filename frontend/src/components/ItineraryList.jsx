@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ItineraryListItem from "./itinerarylistitem";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import "../styles/ItineraryList.scss";
+// import "../styles/deleteButton.scss"
 
 const ItineraryList = ({ userId }) => {
   const [itineraries, setItineraries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItinerary, setSelectedItinerary] = useState(null);
-
 
   useEffect(() => {
     setLoading(true);
@@ -26,6 +28,18 @@ const ItineraryList = ({ userId }) => {
     );
     const aiData = JSON.parse(selected.response_prompt);
     setSelectedItinerary({ ...selected, aiData });
+  };
+
+  const handleDeleteItinerary = (itineraryId) => {
+    axios
+      .delete(`http://localhost:8080/itineraries/${itineraryId}`)
+      .then((response) => {
+        // Update the list of itineraries after successful deletion
+        setItineraries((prevItineraries) =>
+          prevItineraries.filter((itinerary) => itinerary.id !== itineraryId)
+        );
+      })
+      .catch((error) => console.log(error));
   };
 
   if (loading) {
@@ -57,6 +71,11 @@ const ItineraryList = ({ userId }) => {
                     </h3>
                   </div>
                 </li>
+                <button className="delete-button" onClick={() => handleDeleteItinerary(itinerary.id)}>
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                  />
+                </button>
               </div>
             </div>
           ))}

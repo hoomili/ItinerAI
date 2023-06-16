@@ -41,3 +41,13 @@ $color-button-text: #fff1ed;
   opacity: 0.8;
   float: left;
 }
+
+.delete-button{
+  max-height: 25px;
+  background-color: #ff8197;
+  color: #fff1ed;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
