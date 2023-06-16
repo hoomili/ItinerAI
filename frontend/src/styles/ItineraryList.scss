@@ -13,12 +13,31 @@ $color-button-text: #fff1ed;
 }
 
 .itinerary-header {
+  background-color: #fff1ed;
   width: 100%;
   text-align: left;
   font-size: 45px;
   color: #374b73;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-left: 20px;
+}
+
+.itinerary-empty {
+  background-color: #fff1ed;
+  color: #374b73;
+  padding-top: 80px;
+  padding-bottom: 170px;
+}
+
+.itinerary-empty a {
+  color: #374b73;
+  text-decoration: none;
+}
+
+.itinerary-empty a:hover {
+  text-decoration: underline; /* Add underline on hover */
 }
 
 .itinerary-item {
@@ -26,6 +45,7 @@ $color-button-text: #fff1ed;
   flex-direction: column;
   align-items: center;
   width: 600px;
+  margin-top: 5px;
 }
 
 .itinerary-item--photo {
@@ -40,4 +60,31 @@ $color-button-text: #fff1ed;
   font-size: 30px;
   opacity: 0.8;
   float: left;
+  margin-top: 5px;
+  padding-bottom: 10px;
+}
+
+.itinerary-loader--container {
+  background-color: #FF8197;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.itinerary-list--loader {
+  background-color: #FFF1ED;
+  color: #ff8197;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  width: 90%px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }

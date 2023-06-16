@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ColorRing } from "react-loader-spinner";
 import axios from "axios";
 import ItineraryListItem from "./itinerarylistitem";
 import "../styles/ItineraryList.scss";
@@ -29,7 +31,20 @@ const ItineraryList = ({ userId }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="itinerary-loader--container">
+        <h1 className="itinerary-list--loader">Loading your itineraries...</h1>
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </div>
+    );
   }
 
   return (
@@ -37,8 +52,8 @@ const ItineraryList = ({ userId }) => {
       <h1 className="itinerary-header">My Trips</h1>
       {itineraries.length === 0 ? (
         <h2 className="itinerary-empty">
-          It looks like you don't have any saved itineraries! Click Create
-          Itinerary to get started!
+          It looks like you don't have any saved itineraries! Click{" "}
+          <Link to="/">Create Itinerary</Link> to get started!
         </h2>
       ) : (
         <ul className="itinerary-list">

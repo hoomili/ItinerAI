@@ -1,6 +1,6 @@
-INSERT INTO USERS (first_name, last_name, username, email, password)
+INSERT INTO USERS (first_name, last_name, profile_pic, email, password)
 VALUES
-('John', 'Doe', 'johndoe', 'john.doe@example.com', '$2b$10$wIvsSL7/eIt1HDyCsNeJoeESkly2dA7iWcP9bQWXrSWDETu159u/i');
+('John', 'Doe', 'https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg', 'john.doe@example.com', '$2b$10$wIvsSL7/eIt1HDyCsNeJoeESkly2dA7iWcP9bQWXrSWDETu159u/i');
 
 
 INSERT INTO ITINERARIES (user_id, accommodations, response_prompt, city, country, image_url)
