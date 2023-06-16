@@ -7,25 +7,32 @@ import { Checkmark } from "react-checkmark";
 
 const ItinerarySaveButton = function ({ aiData }) {
   console.log("aiData", aiData);
-  const [imageUrl, setImageUrl] = useState("");
   const user_id = 1;
   const accommodations = aiData[0].accommodation.title;
   const response_prompt = aiData[0].itineraryText;
   const city = aiData[0].city;
   const country = aiData[0].country;
-  const points = aiData[0].keyLocations;
-  
-  const [isSaved, setIsSaved] = useState(false); // 
+  const locationsPerDay = aiData[0].locationsPerDay; 
+  const [isSaved, setIsSaved] = useState(false); 
 
 
-  // const handleImageChange = (event) => {
-  //   setImageUrl(event.target.value);
-  // };
+  const points = locationsPerDay.flatMap((dayLocations) =>
+  dayLocations.map((location) => ({
+    title: location.name,
+    latitude: location.geometry.location.lat,
+    longitude: location.geometry.location.lng,
+    description: location.formatted_address,
+    image_url: location.photos[0].photo_reference,
+    rating: location.rating,
+  }))
+);
 
-  //post request for saving itinerary
   const handleSave = (event) => {
     console.log("trying to make your post...");
     event.preventDefault();
+
+    const firstImage = aiData[0].locationsPerDay[0][0].photos[0];
+    const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=120&maxheight=120&photo_reference=${firstImage.photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`;
     setImageUrl(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${aiData[0].savePhoto.photo_reference}&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`);
     axios
       .post("http://localhost:8080/itineraries", {
@@ -39,8 +46,7 @@ const ItinerarySaveButton = function ({ aiData }) {
       })
       .then((response) => {
         console.log(response);
-        setIsSaved(true); 
-
+        setIsSaved(true);
       })
       .catch((error) => {
         console.log(error);
@@ -50,24 +56,17 @@ const ItinerarySaveButton = function ({ aiData }) {
     <div className="save-button">
       {isSaved ? (
         <>
-          <Checkmark size={60} color="#282c34"/>
+          <Checkmark size={60} color="#282c34" />
         </>
       ) : (
-      <form onSubmit={handleSave}>
-        <label>
-          Like this itinerary? Click the heart to save
-          it:
-          {/* <input
-            type="text"
-            placeholder="Enter image URL"
-            value={imageUrl}
-            onChange={handleImageChange}
-          /> */}
-        </label>
-        <button type="submit">
-          <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
-        </button>
-      </form>
+        <form onSubmit={handleSave}>
+          <label>
+            Like this itinerary? Click the heart to save it:
+          </label>
+          <button type="submit">
+            <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
+          </button>
+        </form>
       )}
     </div>
   );
