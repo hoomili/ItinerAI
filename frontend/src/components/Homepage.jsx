@@ -85,9 +85,10 @@ function Homepage(props) {
           <form onSubmit={handleSubmit} className="homepage-form">
 
             <label className="homepage-label">
-              City:
+              Destination:
               <Autocomplete 
               apiKey={process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}
+              placeholder=""
               className="homepage-input"
               onPlaceSelected={(place) => {
                 setCity(place.address_components[0].long_name);
@@ -97,22 +98,6 @@ function Homepage(props) {
                 types: ["(cities)"],
               }}
             />
-              {/* <input
-                type="text"
-                name="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="homepage-input"
-              /> */}
-            </label>
-            <label className="homepage-label">
-              Country:
-              <input
-                type="text"
-                name="country"
-                value={country}
-                className="homepage-input"
-              />
             </label>
             <label className="homepage-label">
               Number of days:
