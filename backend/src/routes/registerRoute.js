@@ -13,7 +13,7 @@ const pool = new Pool({
 
 registerRouter.post('/', async (req, res) => {
   try {
-    const { firstName, lastName, email, username, password } = req.body;
+    const { firstName, lastName, email, profilePic, password } = req.body;
 
     const existingUser = await pool.query('SELECT * FROM USERS WHERE email = $1', [email]);
 
@@ -23,7 +23,7 @@ registerRouter.post('/', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await pool.query('INSERT INTO users (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, email, username, hashedPassword]);
+    await pool.query('INSERT INTO users (first_name, last_name, email, profile_pic, password) VALUES ($1, $2, $3, $4, $5)', [firstName, lastName, email, profilePic, hashedPassword]);
     res.status(200).json({ message: 'Registration successful' });
   } catch (error) {
     console.error('Registration failed', error);
