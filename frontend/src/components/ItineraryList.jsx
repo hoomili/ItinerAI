@@ -60,7 +60,7 @@ const ItineraryList = ({ userId }) => {
   }
 
   return (
-    <div>
+    <div className="itinerary-master-container">
       <h1 className="itinerary-header">My Trips</h1>
       {itineraries.length === 0 ? (
         <h2 className="itinerary-empty">
