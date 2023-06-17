@@ -69,21 +69,36 @@ const addPoints = (itinerary_id, title, latitude, longitude, description, image_
   });
 };
 
-// const deleteItinerary = (itinerary_id) => {
-//   console.log(`Deleting Itinerary from user's favourites`);
+const deleteItinerary = (itineraryId, db) => {
+  console.log(`Deleting itinerary with ID ${itineraryId}`);
 
-//   const queryString = `
-//   DELETE FROM ITINERARIES 
-//   WHERE id = $1;
-//   `;
+  const queryString = `
+    DELETE FROM itineraries
+    WHERE id = $1;
+  `;
 
-//   return db
-//     .query(queryString, [itinerary_id])
-//     .then(() => {
-//       console.log(`Itinerary deleted from user's saved itineraries`);
-//     })
-//     .catch((error) => {
-//       console.log("Error deleting itinerary from favourites:", error);
-//     });
-// };
-module.exports = { addItinerary, addPoints };
+  const values = [itineraryId];
+
+  return db
+    .connect()
+    .then((client) => {
+      return client
+        .query(queryString, values)
+        .then(() => {
+          console.log(`Itinerary with ID ${itineraryId} deleted successfully`);
+          client.release(); 
+        })
+        .catch((error) => {
+          console.log("Error deleting itinerary:", error);
+          client.release(); 
+          throw error;
+        });
+    })
+    .catch((error) => {
+      console.log("Error acquiring client:", error);
+      throw error;
+    });
+};
+
+
+module.exports = { addItinerary, addPoints, deleteItinerary };

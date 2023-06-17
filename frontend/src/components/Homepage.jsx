@@ -92,8 +92,10 @@ function Homepage(props) {
               placeholder=""
               className="homepage-input"
               onPlaceSelected={(place) => {
+                console.log(place.address_components);
+                console.log('last item',place.address_components[place.address_components.length - 1]);
                 setCity(place.address_components[0].long_name);
-                setCountry(place.address_components[3].long_name)
+                setCountry(place.address_components[place.address_components.length - 1].long_name);
               }}
               options={{
                 types: ["(cities)"],

@@ -34,7 +34,7 @@ router.post("/completions", async (req, res) => {
 
 
 
-  'key_locations': an object that contains the title of key locations suggested in the itinerary. Select at least two key locations per day in the itinerary and share them in your response with me in the below example format.
+  'key_locations': an object that contains the title of all the key locations suggested in the itinerary and share them in your response with me in the below example format.
 
   EXAMPLE:
   "key_locations": [
@@ -46,7 +46,7 @@ router.post("/completions", async (req, res) => {
     }
   ]
 
-  'restaurants': an array that contains the suggested restaurants in the itinerary per day. Select at least 2 restaurants per day in the itinerary and share them in your response with me in the below example format.
+  'restaurants': an array that contains all the suggested restaurants in the itinerary per day, and share them in your response with me in the below example format.
 
   EXAMPLE:
   "restaurants": [
@@ -78,7 +78,7 @@ router.post("/completions", async (req, res) => {
     }
   }
 
-  DO NOT repeat suggested activities or locations, and please make sure the itinerary text is not repetitive in nature.
+  DO NOT repeat suggested activities or locations or restaurants, and please make sure the itinerary text is not repetitive in nature.
 
   Your entire response should be in JSON format, nothing else.`;
 
@@ -90,8 +90,9 @@ router.post("/completions", async (req, res) => {
         { role: "user", content: prompt },
       ],
       temperature: 0.2,
-      max_tokens: 1000,
+      max_tokens: 2500,
     });
+    console.log(response.data.choices[0].message.content);
 
     const jsonData = JSON.parse(response.data.choices[0].message.content);
     const itinerary = jsonData.itinerary;
@@ -116,16 +117,28 @@ router.post("/completions", async (req, res) => {
     const stayData = await axios(config(accommodation.title));
     const stay = stayData.data.candidates[0];
 
+    const savePhoto = await axios({
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${city}%20${country}&inputtype=textquery&fields=photos&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`,
+      headers: {}
+    })
+
     for (let i = 0; i < itinerary.length; i++) {
       const element = itinerary[i];
       const dayLocations = []
       itineraryList.push(element.itinerary_text)
       for (const iterator of element.key_locations) {
         const locationData = await axios(config(iterator.title))
+        if(!('photos' in locationData.data.candidates[0])) {
+          locationData.data.candidates[0].photos = savePhoto.data.candidates[0].photos
+        }
         dayLocations.push(locationData.data.candidates[0])
       }
       for (const iterator of element.restaurants) {
         const locationData = await axios(config(iterator.title))
+        if(!('photos' in locationData.data.candidates[0])) {
+          locationData.data.candidates[0].photos = savePhoto.data.candidates[0].photos
+        }
         dayLocations.push(locationData.data.candidates[0])
       }
       locationsPerDay.push(dayLocations)
@@ -133,11 +146,7 @@ router.post("/completions", async (req, res) => {
     // console.log('locations for days', locationsPerDay)
 
     //get the photo for saving the itinerary
-    const savePhoto = await axios({
-      method: "get",
-      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${city}%20${country}&inputtype=textquery&fields=photos&key=${process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}`,
-      headers: {}
-    })
+
     
     console.log(savePhoto);
     const responseData = {
