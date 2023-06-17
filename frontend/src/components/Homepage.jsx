@@ -46,8 +46,8 @@ function Homepage(props) {
   };
 
   return (
-    <div className="homepage-container">
-      {isCompleted ? (
+    <div className={`homepage-container ${isCompleted ? "homepage-container-completed" : ""}`}>
+    {isCompleted ? (
         <>
           <h1 className="homepage-title">Itinerary Generated!</h1>
           <button
