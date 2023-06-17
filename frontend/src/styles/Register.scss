@@ -4,43 +4,42 @@ $color-button-bg: #ff8197;
 $color-button-text: #fff1ed;
 
 .register-container {
-  background-color: #ff8197;
+  background-color: #FF8197;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // border-radius: 20px;
-  width: 100%;
+  border-radius: 20px;
+  width: 400px;
   margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
 
   .register-message {
-    background-color: #fff1ed;
-    color: #ff8197;
-    border-radius: 8px;
-    width: 50%;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    color: #FFF1ED;
+    margin-bottom: 20px;
+  }
+
+  .register-label {
+    color: #FFF1ED;
+    margin-bottom: 10px;
   }
 
   .register-input {
-    background-color: #fff1ed;
-    color: #ff8197;
-    border-radius: 5px;
-    width: 360px;
-    padding: 15px;
-    border: none;
+    padding: 8px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      width: 360px;
   }
 
   .register-submit {
     background-color: #fff1ed;
-    color: #ff8197;
+    color: #FF8197;
     border: none;
-    padding: 15px 15px;
+    padding: 8px 16px;
     cursor: pointer;
     border-radius: 8px;
     margin-top: auto;
-    font-weight: bold;
-    width: 50%;
-    font-size: 22px;
   }
 }
