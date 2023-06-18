@@ -39,8 +39,6 @@ const Loading = () => {
         2000,
         "Checking your budget...",
         2000,
-        "Generating key locations...",
-        2000,
         "Finding the best restaurants...",
         2000,
         "Sourcing a good hotel...",
