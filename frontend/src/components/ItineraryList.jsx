@@ -82,7 +82,7 @@ const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
                     />
                     <button
                       className="delete-button"
-                      onClick={(event) => handleDeleteItinerary(itinerary.id)}
+                      onClick={() => handleDeleteItinerary(itinerary.id)}
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
