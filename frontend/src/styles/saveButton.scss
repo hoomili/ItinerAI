@@ -7,6 +7,7 @@
   justify-content: center;
   height: 90px;
   margin-bottom: 20px;
+  
 
   label {
     color: #fff1ed;
@@ -35,9 +36,13 @@
     border-radius: 8px;
     margin-left: 10px;
   }
+  button:hover {
+    background-color: #374B73;
+  }
 
   button:focus {
     outline: none;
+    
   }
 
   button .heart-icon {

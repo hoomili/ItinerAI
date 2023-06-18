@@ -6,10 +6,10 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/ItineraryList.scss";
 import { ColorRing } from "react-loader-spinner";
 
-const ItineraryList = ({ userId }) => {
+const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
   const [itineraries, setItineraries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedItinerary, setSelectedItinerary] = useState(null);
+
 
   useEffect(() => {
     setLoading(true);
