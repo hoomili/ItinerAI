@@ -22,12 +22,13 @@ const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
       .catch((error) => console.log(error));
   }, [userId]);
 
-  const handleItineraryClick = (itineraryId) => {
-    const selected = itineraries.find(
-      (itinerary) => itinerary.id === itineraryId
-    );
-    const aiData = JSON.parse(selected.response_prompt);
-    setSelectedItinerary({ ...selected, aiData });
+  const handleItineraryClick = (event, itineraryId) => {
+    // Open the itinerary if the click is not on the delete button
+    if (!event.target.closest(".delete-button")) {
+      const selected = itineraries.find((itinerary) => itinerary.id === itineraryId);
+      const aiData = JSON.parse(selected.response_prompt);
+      setSelectedItinerary({ ...selected, aiData });
+    }
   };
 
   const handleDeleteItinerary = (itineraryId) => {
@@ -72,7 +73,7 @@ const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
           {itineraries.map((itinerary) => (
             <div className="itinerary-item--container" key={itinerary.id}>
               <div className="itinerary-item">
-                <li onClick={() => handleItineraryClick(itinerary.id)}>
+                <li onClick={(event) => handleItineraryClick(event, itinerary.id)}>
                   <div className="itinerary-item--photo-container">
                     <img
                       className="itinerary-item--photo"
