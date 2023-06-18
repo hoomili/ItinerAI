@@ -9,20 +9,23 @@
   border-radius: 20px;
   margin: 0 auto; 
   margin-bottom: 50px;
-  max-width: 95vw;
-  max-height: 90vh;
+  max-width: 88vw;
+  max-height: 80vh;
   padding: 20px;
   width: 90vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
+  position: absolute;
+  top: 15vh;
 }
 
 .itineray-list--item-map {
-  height: 85vh;
+  height: 73vh;
   width: 100%;
   min-width: 300px;
-  margin: 2rem;
+  margin: 1rem;
   border-radius: 1rem;
+  border: 1px solid #FF8197;
 }
 
 .itineray-list--item-header {
@@ -45,12 +48,14 @@
   img {
     border-radius: 1rem;
     margin-left: 0.5rem;
+    width: 120px;
+    height: 120px;
   }
-  section {
-    text-align: left;
-  }
+
+  text-align: left;
+
 }
-.gm-style-iw { width: 350px !important; }
+.gm-style-iw { width: 400px !important; }
 
 .btn-primary {
   color: #fff1ed;
