@@ -10,7 +10,7 @@ $color-button-text: #FFF1ED;
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
-  width: 90vw;
+  width: 400px;
   margin: 0 auto;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -49,4 +49,17 @@ $color-button-text: #FFF1ED;
         border-radius: 8px;
         margin-top: auto;
       }
+
+    }
+    .homepage-container-completed {
+      background-color: #FF8197;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 20px;
+      width: 90vw;
+      margin: 0 auto;
+      margin-top: 30px;
+      margin-bottom: 30px;
 }
