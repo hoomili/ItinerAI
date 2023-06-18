@@ -3,6 +3,7 @@ import axios from "axios";
 import "../styles/Homepage.scss";
 import { ColorRing } from "react-loader-spinner";
 import Autocomplete from 'react-google-autocomplete';
+import Loading from "./Loading";
 
 function Homepage(props) {
   const [city, setCity] = useState("");
@@ -67,9 +68,7 @@ function Homepage(props) {
         </>
       ) : isGenerating ? (
         <>
-          <h1 className="homepage-title">
-            Generating your custom itinerary...
-          </h1>
+          <Loading />
           <ColorRing
             visible={true}
             height="80"
