@@ -27,6 +27,7 @@
 ul {
   list-style: none;
   display: flex;
+  align-items: flex-end;
 }
 
 .nav-item {
@@ -64,6 +65,7 @@ ul {
 .nav-profile--pic {
   display: flex;
   overflow: hidden;
+  flex-direction: column;
 }
 
 #profile-pic {

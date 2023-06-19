@@ -42,6 +42,7 @@ const Navbar = () => {
               <Link to="/" onClick={handleLogout}>
                   <img id="profile-pic" src={user.profile_pic} alt="Profile Pic" />
                 </Link>
+                <div>Hi, {user.first_name}</div>
               </li>
             </>
           )}
