@@ -14,8 +14,8 @@ const ItineraryListItem = (props) => {
   const [map, setMap] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
   const [day, setDay] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
   const {user} = useContext(AuthContext);
+  const { isOpen , setIsOpen } = props
 
   console.log("userID2", props.userId);
 

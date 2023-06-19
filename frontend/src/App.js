@@ -18,8 +18,10 @@ function App() {
   const { isLoggedIn, user } = useContext(AuthContext);
   const [userId, setUserId] = useState(null);
   const [selectedItinerary, setSelectedItinerary] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   
   console.log('user', user);
+  console.log('is it set to true?' ,isOpen);
 
 
   useEffect(() => {
@@ -35,15 +37,15 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterNewUser />} />
-          <Route path="/my-itineraries" element={user && <ItineraryList userId={userId} selectedItinerary={selectedItinerary} setSelectedItinerary={setSelectedItinerary} />} />
+          <Route path="/my-itineraries" element={user && <ItineraryList userId={userId} selectedItinerary={selectedItinerary} setSelectedItinerary={setSelectedItinerary} setIsOpen={setIsOpen} isOpen={isOpen}/>} />
           <Route path="/itinerary/:userId/:id" element={<ItineraryListItem aiData={aiData} userId={userId}/>} />
           <Route
             exact
             path="/"
             element={
               <>
-                <Homepage setAiData={setAiData} />
-                {aiData && <ItineraryListItem aiData={aiData} userId={userId} setSelectedItinerary={setSelectedItinerary}/>}
+                <Homepage setAiData={setAiData} setIsOpen={setIsOpen} />
+                {isOpen && aiData && <ItineraryListItem aiData={aiData} userId={userId} setSelectedItinerary={setSelectedItinerary} setIsOpen={setIsOpen} isOpen={isOpen} />}
               </>
             }
           />

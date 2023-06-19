@@ -14,6 +14,8 @@ function Homepage(props) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false); // Track completion status
 
+  const { setIsOpen } = props
+
   // useEffect(() => {
   //   if (props.aiData.length > 0) {
   //     setIsCompleted(true); // Set completion status to true if aiData is available
@@ -40,6 +42,7 @@ function Homepage(props) {
         props.setAiData(response.data);
         setIsGenerating(false);
         setIsCompleted(true);
+        setIsOpen(true)
       })
       .catch((error) => {
         console.error("API error:", error);

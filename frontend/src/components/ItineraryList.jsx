@@ -6,7 +6,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/ItineraryList.scss";
 import { ColorRing } from "react-loader-spinner";
 
-const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
+const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary, setIsOpen, isOpen }) => {
   const [itineraries, setItineraries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,6 +28,7 @@ const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
       const selected = itineraries.find((itinerary) => itinerary.id === itineraryId);
       const aiData = JSON.parse(selected.response_prompt);
       setSelectedItinerary({ ...selected, aiData });
+      setIsOpen(true)
     }
   };
 
@@ -99,7 +100,7 @@ const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
         </ul>
       )}
       {selectedItinerary && (
-        <ItineraryListItem aiData={selectedItinerary.aiData} userId={userId} setSelectedItinerary={setSelectedItinerary}/>
+        <ItineraryListItem aiData={selectedItinerary.aiData} userId={userId} setSelectedItinerary={setSelectedItinerary} setIsOpen={setIsOpen} isOpen={isOpen}/>
       )}
     </div>
   );
