@@ -125,23 +125,27 @@ router.post("/completions", async (req, res) => {
 
     for (let i = 0; i < itinerary.length; i++) {
       const element = itinerary[i];
-      const dayLocations = []
-      itineraryList.push(element.itinerary_text)
+      const dayLocations = [];
+      itineraryList.push(element.itinerary_text);
       for (const iterator of element.key_locations) {
-        const locationData = await axios(config(iterator.title))
-        if(!('photos' in locationData.data.candidates[0])) {
-          locationData.data.candidates[0].photos = savePhoto.data.candidates[0].photos
+        const locationData = await axios(config(iterator.title));
+        if (locationData.data.candidates && locationData.data.candidates[0] && !('photos' in locationData.data.candidates[0])) {
+          locationData.data.candidates[0].photos = savePhoto.data.candidates[0].photos;
         }
-        dayLocations.push(locationData.data.candidates[0])
+        if (locationData.data.candidates && locationData.data.candidates[0]) {
+          dayLocations.push(locationData.data.candidates[0]);
+        }
       }
       for (const iterator of element.restaurants) {
-        const locationData = await axios(config(iterator.title))
-        if(!('photos' in locationData.data.candidates[0])) {
-          locationData.data.candidates[0].photos = savePhoto.data.candidates[0].photos
+        const locationData = await axios(config(iterator.title));
+        if (locationData.data.candidates && locationData.data.candidates[0] && !('photos' in locationData.data.candidates[0])) {
+          locationData.data.candidates[0].photos = savePhoto.data.candidates[0].photos;
         }
-        dayLocations.push(locationData.data.candidates[0])
+        if (locationData.data.candidates && locationData.data.candidates[0]) {
+          dayLocations.push(locationData.data.candidates[0]);
+        }
       }
-      locationsPerDay.push(dayLocations)
+      locationsPerDay.push(dayLocations);
     }
     // console.log('locations for days', locationsPerDay)
 
