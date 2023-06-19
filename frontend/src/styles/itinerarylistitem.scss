@@ -18,6 +18,8 @@
   position: absolute;
   top: 15vh;
   left: 5.5vw;
+  font-family: 'Mandali', sans-serif;
+  color: #374b73;
 }
 
 .itineray-list--item-map {
@@ -37,11 +39,13 @@
     max-height: 90vh;
     overflow-y: auto;
   }
+  font-family: 'Mandali', sans-serif;
 }
 .itineray-list--item-description {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 2px solid #FF8197;
+  font-family: 'Mandali', sans-serif;
 }
 
 .itineray-list--item-map-infoWindow {
@@ -62,6 +66,8 @@
   color: #fff1ed;
   background-color: #FF8197;
   border-color: #FF8197;
+  font-family: 'Mandali', sans-serif;
+  font-weight: bold;
 }
 .btn-primary:hover {
   background-color: #374B73 ;
@@ -71,6 +77,7 @@
   margin-top: 2rem;
   border-top: 2px solid #FF8197;
   padding-top: 1rem;
+  font-family: 'Mandali', sans-serif;
 }
 
 .close-button{

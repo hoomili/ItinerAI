@@ -14,6 +14,7 @@ $color-button-text: #fff1ed;
   width: 90vw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
+  font-family: 'Mandali', sans-serif;
 }
 
 .itinerary-list {
@@ -34,6 +35,7 @@ $color-button-text: #fff1ed;
   margin-bottom: 0;
   padding-top: 15px;
   padding-left: 20px;
+  font-weight: bold;
 }
 
 .itinerary-empty {
@@ -49,7 +51,7 @@ $color-button-text: #fff1ed;
 }
 
 .itinerary-empty a:hover {
-  text-decoration: underline; /* Add underline on hover */
+  text-decoration: underline;
 }
 
 .itinerary-item {
@@ -99,6 +101,7 @@ $color-button-text: #fff1ed;
   padding-bottom: 15px;
   padding-left: 20px;
   padding-right: 20px;
+  font-family: 'Mandali', sans-serif;
 }
 
 .itinerary-item--photo-container {

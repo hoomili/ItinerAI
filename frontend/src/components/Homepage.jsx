@@ -88,7 +88,7 @@ function Homepage(props) {
               Destination:
               <Autocomplete 
               apiKey={process.env.REACT_APP_NEXT_PUBLIC_MAP_API_KEY}
-              placeholder=""
+              // placeholder="Enter a city"
               className="homepage-input"
               onPlaceSelected={(place) => {
                 console.log(place.address_components);
@@ -107,16 +107,18 @@ function Homepage(props) {
                 type="number"
                 name="numDays"
                 value={numDays}
+                placeholder="Enter number of days"
                 onChange={(e) => setNumDays(e.target.value)}
                 className="homepage-input"
               />
             </label>
             <label className="homepage-label">
-              My daily budget:
+              My daily budget ($):
               <input
                 type="number"
                 name="dailyBudget"
                 value={dailyBudget}
+                placeholder="Ex. 500"
                 onChange={(e) => setDailyBudget(e.target.value)}
                 className="homepage-input"
               />
@@ -127,6 +129,7 @@ function Homepage(props) {
                 type="text"
                 name="interests"
                 value={interests}
+                placeholder="Ex. Hiking, sightseeing, art"
                 onChange={(e) => setInterests(e.target.value)}
                 className="homepage-input"
               />

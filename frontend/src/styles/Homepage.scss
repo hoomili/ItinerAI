@@ -14,6 +14,7 @@ $color-button-text: #FFF1ED;
   margin: 0 auto;
   margin-top: 30px;
   margin-bottom: 30px;
+  font-family: 'Mandali', sans-serif;
 
   .homepage-title {
     color: #FFF1ED;
@@ -25,10 +26,12 @@ $color-button-text: #FFF1ED;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    
 
     .homepage-label {
       color: #FFF1ED;
       margin-bottom: 10px;
+      font-weight: bold;
     }
 
     .homepage-input {
@@ -48,6 +51,7 @@ $color-button-text: #FFF1ED;
         cursor: pointer;
         border-radius: 8px;
         margin-top: auto;
+        font-weight: bold;
       }
 
     }
