@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -6,6 +6,7 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 import { ItinerarySaveButton } from "./itinerarySaveButton";
+import { AuthContext } from "../providers/AuthProvider";
 
 import "../styles/itinerarylistitem.scss";
 
@@ -14,6 +15,8 @@ const ItineraryListItem = (props) => {
   const [activeMarker, setActiveMarker] = useState(null);
   const [day, setDay] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
+  const {user} = useContext(AuthContext);
+
   console.log("userID2", props.userId);
 
   const { itineraryList, locationsPerDay, city, country } = props.aiData;
@@ -145,7 +148,7 @@ const ItineraryListItem = (props) => {
       </button>
       <div className="itineray-list--item-header">
         <h1>
-          Awesome Trip to {city}, {country}{" "}
+          {user.first_name}'s Trip to {city}, {country}{" "}
         </h1>
         <div className="accommodation">
           <h4>Accommodation: </h4>
