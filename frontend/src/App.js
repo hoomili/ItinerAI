@@ -18,6 +18,7 @@ function App() {
   const { isLoggedIn, user } = useContext(AuthContext);
   const [userId, setUserId] = useState(null);
   const [selectedItinerary, setSelectedItinerary] = useState(null);
+  
   console.log('user', user);
 
 
