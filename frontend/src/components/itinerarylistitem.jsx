@@ -147,9 +147,7 @@ const ItineraryListItem = (props) => {
         X
       </button>
       <div className="itineray-list--item-header">
-        <h1>
-          {user.first_name}'s Trip to {city}, {country}{" "}
-        </h1>
+        {user ? <h1>{user.first_name}'s Trip to {city}, {country}{" "}</h1> : <h1>My Trip to {city}, {country}{" "}</h1>}
         <div className="accommodation">
           <h4>Accommodation: </h4>
           <h3>{accommodation.name}</h3>
