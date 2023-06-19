@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/ItineraryList.scss";
 import { ColorRing } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
   const [itineraries, setItineraries] = useState([]);
@@ -65,8 +66,8 @@ const ItineraryList = ({ userId, selectedItinerary, setSelectedItinerary }) => {
       <h1 className="itinerary-header">My Trips</h1>
       {itineraries.length === 0 ? (
         <h2 className="itinerary-empty">
-          It looks like you don't have any saved itineraries! Click Create
-          Itinerary to get started!
+          It looks like you don't have any saved itineraries! Click <Link to="/">Create
+          Itinerary</Link> to get started!
         </h2>
       ) : (
         <ul className="itinerary-list">

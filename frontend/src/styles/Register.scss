@@ -14,6 +14,7 @@ $color-button-text: #fff1ed;
   margin: 0 auto;
   margin-top: 30px;
   margin-bottom: 30px;
+  font-family: 'Mandali', sans-serif;
 
   .register-message {
     color: #FFF1ED;
@@ -23,6 +24,7 @@ $color-button-text: #fff1ed;
   .register-label {
     color: #FFF1ED;
     margin-bottom: 10px;
+    font-weight: bold;
   }
 
   .register-input {
@@ -41,5 +43,6 @@ $color-button-text: #fff1ed;
     cursor: pointer;
     border-radius: 8px;
     margin-top: auto;
+    font-weight: bold;
   }
 }

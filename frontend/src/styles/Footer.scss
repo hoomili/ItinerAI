@@ -8,12 +8,11 @@ $color-button-text: #fff1ed;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: #FF8197;
   background-color: #FFF1ED;
   height: 110px;
   border-top: 3px solid #FF8197;
   color: #374B73;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Mandali', sans-serif;
 }
 
 
@@ -25,7 +24,7 @@ ul {
 li a {
   text-decoration: none;
   color: #374B73;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Mandali', sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
@@ -33,4 +32,5 @@ li a {
 li {
   padding-left: 5px;
   margin-right: 80px;
+  font-family: 'Mandali', sans-serif;
 }
