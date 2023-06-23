@@ -41,11 +41,15 @@ It is important for each user to be able to effortlessly share their travel plan
 
 
 # Screenshots
-![Screenshot of Create Itinerary]()
-![Screenshot of Create Sign Up]()
-![Screenshot of Create Login]()
-![Screenshot of Itinerary]()
-![Screenshot of My Itineraries]()
+![Screenshot of Create Itinerary](https://github.com/hoomili/ItinerAI/blob/readme/bugfix/doc/homepage.png?raw=true)
+
+![Screenshot of Create Sign Up](https://github.com/hoomili/ItinerAI/blob/readme/bugfix/doc/signup.png?raw=true)
+
+![Screenshot of Create Login](https://github.com/hoomili/ItinerAI/blob/readme/bugfix/doc/login.png?raw=true)
+
+![Screenshot of Itinerary](https://github.com/hoomili/ItinerAI/blob/readme/bugfix/doc/itinerary.png?raw=true)
+
+![Screenshot of My Itineraries](https://github.com/hoomili/ItinerAI/blob/readme/bugfix/doc/my-itineraries.png?raw=true)
 
 
 ## Setup
