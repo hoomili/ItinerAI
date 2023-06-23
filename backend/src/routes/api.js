@@ -15,26 +15,25 @@ router.post("/completions", async (req, res) => {
   // console.log(req.body);
   const { city, country, numDays, dailyBudget, interests } = req.body;
 
-  const prompt = `Create a fantastic travel itinerary based on the following information. Your client will be taking a trip to ${city}, ${country} for ${numDays} days with a daily budget of ${dailyBudget} dollars. The traveler is interested in ${interests}. Make sure your response takes into consideration the interests of your client, but also suggests other popular attractions and landmarks. Your itinerary should also include suggested accommodations for each different city you suggest.
+  const prompt = `Your task is to create a fantastic travel itinerary for your client based on the following information. Your client is planning to visit ${city}, ${country} for ${numDays} days with a daily budget of $${dailyBudget} dollars. They are particularly interested in ${interests}. While the itinerary should cater to the client's interests, it should also introduce them to popular local attractions and landmarks.
 
-  Return the information in JSON format as an object with the following key value pairs and format.
-  Put each day in its own object similar to the example. Include the accommodation as an object that contains a suggested accommodation option in the form of a key-value pair. This should be noted as its own object in your response.
+  Structure your output in JSON format.
+
+  Put each day in its own object similar to the example below. Include the accommodation as an object that contains a suggested accommodation option in the form of a key-value pair. This should be noted as its own object in your response.
   
   EXAMPLE:
   "itinerary": [
-    {Day1}, {Day2}
+    {Day1: title}, {Day2: title}
   ],
   "accommodation": {
-    "title": "Hotel Vancouver"
+    "title": "Hotel Example"
   }
 
-
   Each day should include the following:
-  'itinerary_text': HTML formatted text that is well-designed and spaced appropriately. It should include the entirety of the written itinerary you have developed. Make the title to have <h3> tag, and each suggestion explanation in an ordered list. Have each of your key locations and restaurants to be bold in the HTML.
 
+  'itinerary_text': This is HTML formatted text that is well-designed and spaced appropriately. It should include the written itinerary you have developed. Make the title to have <h3> tag, and provide suggestions in an ordered list. Please ensure the key landmarks and attractions are bolded in the body of text by using the <strong> </strong> tags.
 
-
-  'key_locations': an object that contains the title of all the key locations suggested in the itinerary and share them in your response with me in the below example format.
+  'key_locations': an array of objects that contain the title of each key locations suggested in the itinerary. Share them in your response with me in the below example format.
 
   EXAMPLE:
   "key_locations": [
@@ -46,18 +45,17 @@ router.post("/completions", async (req, res) => {
     }
   ]
 
-  'restaurants': an array that contains all the suggested restaurants in the itinerary per day, and share them in your response with me in the below example format.
+  'restaurants': an array of objects that contain all the suggested restaurants in the itinerary per day. Share them in your response with me in the below example format. include at least one restaurant per day
 
   EXAMPLE:
   "restaurants": [
     {
-      "title": "some restaurants"
+      "title": "XYZ"
     }, 
     {
-      "title": "some restaurants"
+      "title": "XYZ"
     }
   ]
-
 
   Final result should look like this:
   {
@@ -74,17 +72,17 @@ router.post("/completions", async (req, res) => {
       }
     ],
     "accommodation": {
-      "title": "Hotel Vancouver"
+      "title": "Hotel Example"
     }
   }
 
-  DO NOT repeat suggested activities or locations or restaurants, and please make sure the itinerary text is not repetitive in nature.
+  Please ensure that there are no repeated activities, locations, or restaurants in the itinerary, and the text isn't repetitive.
 
-  Your entire response should be in JSON format, nothing else.`;
+  Remember, the entire response should be in JSON format.`;
 
   try {
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-16k-0613",
       messages: [
         { role: "system", content: "You are a helpful travel assistant bot." },
         { role: "user", content: prompt },
@@ -92,6 +90,7 @@ router.post("/completions", async (req, res) => {
       temperature: 0.2,
       max_tokens: 2500,
     });
+
     console.log(response.data.choices[0].message.content);
 
     const jsonData = JSON.parse(response.data.choices[0].message.content);
